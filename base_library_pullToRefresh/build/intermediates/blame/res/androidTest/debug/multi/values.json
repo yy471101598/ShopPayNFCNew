@@ -1,0 +1,872 @@
+[
+    {
+        "outputFile": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1660,
+                    "endColumn": 61,
+                    "endOffset": 1717
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1660,
+                        "endColumn": 61,
+                        "endOffset": 1717
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1722,
+                    "endColumn": 63,
+                    "endOffset": 1781
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1722,
+                        "endColumn": 63,
+                        "endOffset": 1781
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1786,
+                    "endColumn": 63,
+                    "endOffset": 1845
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1786,
+                        "endColumn": 63,
+                        "endOffset": 1845
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1850,
+                    "endColumn": 54,
+                    "endOffset": 1900
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1850,
+                        "endColumn": 54,
+                        "endOffset": 1900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1905,
+                    "endColumn": 56,
+                    "endOffset": 1957
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1905,
+                        "endColumn": 56,
+                        "endOffset": 1957
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1962,
+                    "endColumn": 54,
+                    "endOffset": 2012
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1962,
+                        "endColumn": 54,
+                        "endOffset": 2012
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2017,
+                    "endColumn": 37,
+                    "endOffset": 2050
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2017,
+                        "endColumn": 37,
+                        "endOffset": 2050
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2055,
+                    "endColumn": 39,
+                    "endOffset": 2090
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 2055,
+                        "endColumn": 39,
+                        "endOffset": 2090
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2095,
+                    "endColumn": 36,
+                    "endOffset": 2127
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 2095,
+                        "endColumn": 36,
+                        "endOffset": 2127
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2132,
+                    "endColumn": 85,
+                    "endOffset": 2213
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 2132,
+                        "endColumn": 85,
+                        "endOffset": 2213
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2218,
+                    "endColumn": 113,
+                    "endOffset": 2327
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 2218,
+                        "endColumn": 113,
+                        "endOffset": 2327
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2332,
+                    "endColumn": 91,
+                    "endOffset": 2419
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 2332,
+                        "endColumn": 91,
+                        "endOffset": 2419
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2424,
+                    "endColumn": 71,
+                    "endOffset": 2491
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 2424,
+                        "endColumn": 71,
+                        "endOffset": 2491
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2496,
+                    "endColumn": 69,
+                    "endOffset": 2561
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 2496,
+                        "endColumn": 69,
+                        "endOffset": 2561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2566,
+                    "endColumn": 77,
+                    "endOffset": 2639
+                },
+                "from": {
+                    "file": "D:\\myproject\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 2566,
+                        "endColumn": 77,
+                        "endOffset": 2639
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1660,
+                    "endColumn": 61,
+                    "endOffset": 1717
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1660,
+                        "endColumn": 61,
+                        "endOffset": 1717
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1722,
+                    "endColumn": 63,
+                    "endOffset": 1781
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1722,
+                        "endColumn": 63,
+                        "endOffset": 1781
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1786,
+                    "endColumn": 63,
+                    "endOffset": 1845
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1786,
+                        "endColumn": 63,
+                        "endOffset": 1845
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1850,
+                    "endColumn": 54,
+                    "endOffset": 1900
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1850,
+                        "endColumn": 54,
+                        "endOffset": 1900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1905,
+                    "endColumn": 56,
+                    "endOffset": 1957
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1905,
+                        "endColumn": 56,
+                        "endOffset": 1957
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1962,
+                    "endColumn": 54,
+                    "endOffset": 2012
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1962,
+                        "endColumn": 54,
+                        "endOffset": 2012
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2017,
+                    "endColumn": 37,
+                    "endOffset": 2050
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2017,
+                        "endColumn": 37,
+                        "endOffset": 2050
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2055,
+                    "endColumn": 39,
+                    "endOffset": 2090
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 2055,
+                        "endColumn": 39,
+                        "endOffset": 2090
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2095,
+                    "endColumn": 36,
+                    "endOffset": 2127
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 2095,
+                        "endColumn": 36,
+                        "endOffset": 2127
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2132,
+                    "endColumn": 85,
+                    "endOffset": 2213
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 2132,
+                        "endColumn": 85,
+                        "endOffset": 2213
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2218,
+                    "endColumn": 113,
+                    "endOffset": 2327
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 2218,
+                        "endColumn": 113,
+                        "endOffset": 2327
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2332,
+                    "endColumn": 91,
+                    "endOffset": 2419
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 2332,
+                        "endColumn": 91,
+                        "endOffset": 2419
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2424,
+                    "endColumn": 71,
+                    "endOffset": 2491
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 2424,
+                        "endColumn": 71,
+                        "endOffset": 2491
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2496,
+                    "endColumn": 69,
+                    "endOffset": 2561
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 2496,
+                        "endColumn": 69,
+                        "endOffset": 2561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2566,
+                    "endColumn": 77,
+                    "endOffset": 2639
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 2566,
+                        "endColumn": 77,
+                        "endOffset": 2639
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1660,
+                    "endColumn": 61,
+                    "endOffset": 1717
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1660,
+                        "endColumn": 61,
+                        "endOffset": 1717
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1722,
+                    "endColumn": 63,
+                    "endOffset": 1781
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1722,
+                        "endColumn": 63,
+                        "endOffset": 1781
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1786,
+                    "endColumn": 63,
+                    "endOffset": 1845
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1786,
+                        "endColumn": 63,
+                        "endOffset": 1845
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1850,
+                    "endColumn": 54,
+                    "endOffset": 1900
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1850,
+                        "endColumn": 54,
+                        "endOffset": 1900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1905,
+                    "endColumn": 56,
+                    "endOffset": 1957
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1905,
+                        "endColumn": 56,
+                        "endOffset": 1957
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1962,
+                    "endColumn": 54,
+                    "endOffset": 2012
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 1962,
+                        "endColumn": 54,
+                        "endOffset": 2012
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2017,
+                    "endColumn": 37,
+                    "endOffset": 2050
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2017,
+                        "endColumn": 37,
+                        "endOffset": 2050
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2055,
+                    "endColumn": 39,
+                    "endOffset": 2090
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 2055,
+                        "endColumn": 39,
+                        "endOffset": 2090
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2095,
+                    "endColumn": 36,
+                    "endOffset": 2127
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 2095,
+                        "endColumn": 36,
+                        "endOffset": 2127
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2132,
+                    "endColumn": 85,
+                    "endOffset": 2213
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 2132,
+                        "endColumn": 85,
+                        "endOffset": 2213
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2218,
+                    "endColumn": 113,
+                    "endOffset": 2327
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 2218,
+                        "endColumn": 113,
+                        "endOffset": 2327
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2332,
+                    "endColumn": 91,
+                    "endOffset": 2419
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 2332,
+                        "endColumn": 91,
+                        "endOffset": 2419
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2424,
+                    "endColumn": 71,
+                    "endOffset": 2491
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 2424,
+                        "endColumn": 71,
+                        "endOffset": 2491
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2496,
+                    "endColumn": 69,
+                    "endOffset": 2561
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 2496,
+                        "endColumn": 69,
+                        "endOffset": 2561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2566,
+                    "endColumn": 77,
+                    "endOffset": 2639
+                },
+                "from": {
+                    "file": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 2566,
+                        "endColumn": 77,
+                        "endOffset": 2639
+                    }
+                }
+            }
+        ]
+    }
+]

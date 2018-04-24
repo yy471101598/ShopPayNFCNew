@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.shoppay.wynew"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 40
+        versionName "1.40"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    tasks.whenTaskAdded { task ->
+        if (task.name.contains("lint")//如果instant run不生效，把clean这行干掉
+                ||task.name.equals("clean")//项目中有用到aidl则不可以舍弃这个任务
+                ||task.name.contains("Aidl")//用不到测试的时候就可以先关闭
+                ||task.name.contains("mockableAndroidJar")
+                ||task.name.contains("UnitTest")
+                ||task.name.contains("AndroidTest")//用不到NDK和JNI的也关闭掉
+                || task.name.contains("Ndk")
+                || task.name.contains("Jni")
+        ) {
+            task.enabled = false
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile files('libs/core-3.3.0.jar')
+    compile 'com.sunmi:sunmiui:1.1.22'
+    compile 'com.sunmi:PayLib:1.0.23'
+    compile project(':base_library_pullToRefresh')
+    compile 'com.github.markzhai:blockcanary-android:1.5.0'
+    compile(name: 'SunmiPayService', ext: 'aar')
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
