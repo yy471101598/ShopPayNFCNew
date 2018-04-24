@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">智络商家</string>
     <string name="version">1.1</string>
-
+    <string name="test">git测试</string>
 </resources>
