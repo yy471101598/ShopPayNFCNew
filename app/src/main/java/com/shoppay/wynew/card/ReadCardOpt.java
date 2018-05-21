@@ -131,8 +131,7 @@ public class ReadCardOpt extends Activity
                         //通用卡号
                         mCardNumber = String.valueOf(Long.parseLong(common_uuid, 16));
                         //非通用卡号
-                        mMifareCardNumber = String.valueOf(Long.parseLong(payCardInfo.uuid, 16));
-
+                        mMifareCardNumber = String.format("%010d",Long.parseLong(payCardInfo.uuid, 16));
                         /**
                          * 正式使用时，mCardNumber是市面上90%读卡器识别出来的卡号
                          * mMifareCardNumber是市面上少数10%读卡器识别出来的卡号，请自行更换。
