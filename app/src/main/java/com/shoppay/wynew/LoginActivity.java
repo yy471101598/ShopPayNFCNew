@@ -70,6 +70,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ac=this;
+        Log.d("xxx",String.format("%010d",56789));
         ActivityStack.create().addActivity(ac);
         initView();
         if(PreferenceHelper.readBoolean(ac,"shoppay","remember",false)){
@@ -324,6 +325,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     public void obtaindayin() {
+        dialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
@@ -334,6 +336,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
             {
                 try {
+                    dialog.dismiss();
                     Log.d("xxdayinS",new String(responseBody,"UTF-8"));
                     JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
                     if(jso.getBoolean("success")){
@@ -348,15 +351,21 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         PreferenceHelper.write(ac,"shoppay","RechargePrintNumber",Integer.parseInt(dayin.RechargePrintNumber));
                         PreferenceHelper.write(ac,"shoppay","RechargeCountPrintNumber",Integer.parseInt(dayin.RechargeCountPrintNumber));
                         PreferenceHelper.write(ac,"shoppay","IsChkPwd",dayin.IsChkPwd);
+                        Intent intent=new Intent(ac,HomeActivity.class);
+                        intent.putExtra("AppAuthority",dayin.AppAuthority);
+                        startActivity(intent);
+                        finish();
                     }else{
                     }
                 }catch (Exception e){
+                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
             {
+                dialog.dismiss();
             }
         });
     }
@@ -424,9 +433,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                         PreferenceHelper.write(ac,"shoppay","UserName",jso.getJSONObject("data").getString("UserName"));
                         PreferenceHelper.write(ac,"shoppay","UserShopID",jso.getJSONObject("data").getString("UserShopID"));
                         obtaindayin();
-                    Intent intent=new Intent(ac,HomeActivity.class);
-                    startActivity(intent);
-                    finish();
                     }else{
                         Toast.makeText(ac,jso.getString("msg"),Toast.LENGTH_SHORT).show();
                     }

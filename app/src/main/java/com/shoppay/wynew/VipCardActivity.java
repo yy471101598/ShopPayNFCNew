@@ -250,7 +250,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.vipcard_rl_chose:
-                if(list==null||list.size()==0){
+                if(null==list||list.size()==0){
                     vipDengjiList("yes");
                 }else {
                     DialogUtil.dengjiChoseDialog(VipCardActivity.this, list, 1, new InterfaceBack() {

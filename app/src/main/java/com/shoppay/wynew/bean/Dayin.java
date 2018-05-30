@@ -16,5 +16,6 @@ public class Dayin {
     public String  RechargePrintNumber;
     public String RechargeCountPrintNumber;
     public boolean IsChkPwd;
+    public String AppAuthority;
 
 }
