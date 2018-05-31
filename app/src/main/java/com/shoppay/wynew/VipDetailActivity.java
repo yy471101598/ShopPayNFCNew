@@ -99,10 +99,10 @@ public class VipDetailActivity extends Activity implements View.OnClickListener 
         }
       dengjiId=vipList.MemLevelID+"";
         if(vipList.MemSex==0){
-            type="女";
+            type="男";
             rb_girl.setChecked(true);
         }else{
-            type="男";
+            type="女";
             rb_boy.setChecked(true);
         }
         String vipstate="正常";
@@ -300,9 +300,9 @@ public class VipDetailActivity extends Activity implements View.OnClickListener 
         map.put("MemID", vipList.MemID);
         map.put("MemName", et_vipname.getText().toString());
         if(type.equals("男")){
-            map.put("MemSex", 1);
+            map.put("MemSex", 0);
         }else {
-            map.put("MemSex",0);
+            map.put("MemSex",1);
         }
         map.put("MemMobile", et_phone.getText().toString());
         map.put("MemLevelID",dengjiId);
