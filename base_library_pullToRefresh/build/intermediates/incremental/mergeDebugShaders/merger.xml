@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\myproject\ShopPaynew\base_library_pullToRefresh\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\myproject\ShopPaynew\base_library_pullToRefresh\build-types\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\mayun\ShopPayNFC\base_library_pullToRefresh\src\main\shaders"/></dataSet><dataSet config="debug"><source path="F:\mayun\ShopPayNFC\base_library_pullToRefresh\build-types\debug\shaders"/></dataSet></merger>

@@ -4,6 +4,14 @@
         "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
     },
     {
+        "merged": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_arrow.png",
+        "source": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
+    },
+    {
+        "merged": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_rotate.png",
+        "source": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_rotate.png"
+    },
+    {
         "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_rotate.png",
         "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_rotate.png"
     }
