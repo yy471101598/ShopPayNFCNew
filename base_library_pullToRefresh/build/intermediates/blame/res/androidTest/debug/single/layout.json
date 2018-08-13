@@ -24,8 +24,16 @@
         "source": "D:\\android\\project\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     },
     {
+        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
         "merged": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header.xml",
         "source": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header.xml"
+    },
+    {
+        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
     },
     {
         "merged": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
@@ -34,5 +42,9 @@
     {
         "merged": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
         "source": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header.xml",
+        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header.xml"
     }
 ]

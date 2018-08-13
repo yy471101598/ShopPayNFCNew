@@ -1,5 +1,9 @@
 [
     {
+        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_arrow.png",
+        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
+    },
+    {
         "merged": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_arrow.png",
         "source": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_arrow.png"
     },
@@ -22,5 +26,9 @@
     {
         "merged": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_rotate.png",
         "source": "D:\\android\\project\\ShopPay\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_rotate.png"
+    },
+    {
+        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_indicator_rotate.png",
+        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_indicator_rotate.png"
     }
 ]

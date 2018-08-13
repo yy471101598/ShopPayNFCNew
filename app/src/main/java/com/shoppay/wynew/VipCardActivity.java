@@ -1,11 +1,17 @@
 package com.shoppay.wynew;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +44,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +54,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by songxiaotao on 2017/6/30.
  */
 
-public class VipCardActivity extends Activity implements View.OnClickListener {
+public class VipCardActivity extends BaseNfcActivity implements View.OnClickListener {
     private RelativeLayout rl_left, rl_save, rl_boy, rl_girl, rl_vipdj;
     private EditText et_vipcard, et_bmcard, et_vipname, et_phone, et_tjcard;
     private TextView tv_title, tv_boy, tv_girl, tv_vipsr, tv_vipdj, tv_tjname, tv_endtime;
@@ -72,6 +79,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,39 +128,39 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             ontainVipInfo();
         }
     };
+
     private void ontainVipInfo() {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("memCard",editString);
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler()
-        {
+        params.put("memCard", editString);
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxVipinfoS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
+                    LogUtils.d("xxVipinfoS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<List<VipInfo>>(){}.getType();
+                        Type listType = new TypeToken<List<VipInfo>>() {
+                        }.getType();
                         List<VipInfo> list = gson.fromJson(jso.getString("data"), listType);
-                        PreferenceHelper.write(ac, "shoppay", "memid", list.get(0).MemID+"");
+                        PreferenceHelper.write(ac, "shoppay", "memid", list.get(0).MemID + "");
                         PreferenceHelper.write(ac, "shoppay", "vipdengjiid", list.get(0).MemLevelID + "");
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.obj = list.get(0);
                         handler.sendMessage(msg);
                         PreferenceHelper.write(ac, "shoppay", "memid", list.get(0).MemID);
-                    }else{
+                    } else {
                         PreferenceHelper.write(ac, "shoppay", "memid", "");
                         PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                         Message msg = handler.obtainMessage();
                         msg.what = 2;
                         handler.sendMessage(msg);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     PreferenceHelper.write(ac, "shoppay", "memid", "");
                     PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                     Message msg = handler.obtainMessage();
@@ -162,8 +170,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 PreferenceHelper.write(ac, "shoppay", "memid", "");
                 PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                 Message msg = handler.obtainMessage();
@@ -174,8 +181,6 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-
-
 
 
         rl_left = (RelativeLayout) findViewById(R.id.rl_left);
@@ -223,20 +228,17 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
 //                    Toast.makeText(getApplicationContext(), "请输入会员姓名",
 //                            Toast.LENGTH_SHORT).show();
 //                }
- else if (et_phone.getText().toString().equals("")
+                else if (et_phone.getText().toString().equals("")
                         || et_phone.getText().toString() == null) {
                     Toast.makeText(getApplicationContext(), "请输入手机号码",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if (tv_vipdj.getText().toString().equals("请选择")) {
+                } else if (tv_vipdj.getText().toString().equals("请选择")) {
                     Toast.makeText(getApplicationContext(), "请选择会员等级",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if(CommonUtils.isMobileNO(et_phone.getText().toString())){
+                } else if (CommonUtils.isMobileNO(et_phone.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "请输入正确的手机号码",
                             Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     if (CommonUtils.checkNet(getApplicationContext())) {
                         try {
                             saveVipCard();
@@ -250,13 +252,13 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.vipcard_rl_chose:
-                if(null==list||list.size()==0){
+                if (null == list || list.size() == 0) {
                     vipDengjiList("yes");
-                }else {
+                } else {
                     DialogUtil.dengjiChoseDialog(VipCardActivity.this, list, 1, new InterfaceBack() {
                         @Override
                         public void onResponse(Object response) {
-                            dengji=(Dengji) response;
+                            dengji = (Dengji) response;
                             tv_vipdj.setText(dengji.LevelName);
                         }
 
@@ -298,13 +300,13 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                 DialogUtil.dateChoseDialog(VipCardActivity.this, 1, new InterfaceBack() {
                     @Override
                     public void onResponse(Object response) {
-                        String data=DateUtils.timeTodata((String) response);
-                        String cru=DateUtils.timeTodata(DateUtils.getCurrentTime_Today());
-                        Log.d("xxTime",data+";"+cru+";"+DateUtils.getCurrentTime_Today()+";"+(String) response);
-                        if(Double.parseDouble(data)>Double.parseDouble(cru)){
+                        String data = DateUtils.timeTodata((String) response);
+                        String cru = DateUtils.timeTodata(DateUtils.getCurrentTime_Today());
+                        Log.d("xxTime", data + ";" + cru + ";" + DateUtils.getCurrentTime_Today() + ";" + (String) response);
+                        if (Double.parseDouble(data) > Double.parseDouble(cru)) {
                             tv_endtime.setText((String) response);
-                        }else{
-                            Toast.makeText(ac,"过期时间要大于当前时间",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ac, "过期时间要大于当前时间", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -352,7 +354,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             map.put("cardNumber", et_bmcard.getText().toString());//卡面号码
         }
         if (tv_vipsr.getText().toString().equals("年-月-日")) {
-            map.put("memBirthday","");
+            map.put("memBirthday", "");
         } else {
             map.put("memBirthday", tv_vipsr.getText().toString());
         }
@@ -360,48 +362,45 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                 || tv_tjname.getText().toString() == null) {
             map.put("memRecommendId", "");//推介人id
         } else {
-            map.put("memRecommendId", Integer.parseInt( PreferenceHelper.readString(ac, "shoppay", "memid", "")));//推介人id
+            map.put("memRecommendId", Integer.parseInt(PreferenceHelper.readString(ac, "shoppay", "memid", "")));//推介人id
         }
         if (tv_endtime.getText().toString().equals("年-月-日")) {
             map.put("memPastTime", "");//过期时间
         } else {
             map.put("memPastTime", tv_endtime.getText().toString());//过期时间
         }
-   LogUtils.d("xxparams",map.toString());
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppMemAdd", map, new AsyncHttpResponseHandler()
-        {
+        LogUtils.d("xxparams", map.toString());
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppMemAdd", map, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     dialog.dismiss();
-                    LogUtils.d("xxsaveVipCardS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
+                    LogUtils.d("xxsaveVipCardS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
                         Toast.makeText(ac, "办卡成功", Toast.LENGTH_LONG).show();
                         finish();
-                    }else{
+                    } else {
 
-                            Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
-                        Toast.makeText(ac, "会员卡办理失败，请重新登录", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(ac, "会员卡办理失败，请重新登录", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                    Toast.makeText(ac, "会员卡办理失败，请重新登录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ac, "会员卡办理失败，请重新登录", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
     }
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         new ReadCardOpt(et_vipcard);
     }
@@ -409,12 +408,9 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onStop() {
         //终止检卡
-        try
-        {
+        try {
             new ReadCardOpt().overReadCard();
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         super.onStop();
@@ -423,9 +419,9 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             handler.removeCallbacks(delayRun);
         }
     }
+
     //把字符串转为日期
-    public static Date stringToDate(String strDate) throws Exception
-    {
+    public static Date stringToDate(String strDate) throws Exception {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.parse(strDate);
     }
@@ -437,26 +433,25 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
 //        params.put("UserAcount", susername);
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=APPGetMemLevelList", params, new AsyncHttpResponseHandler()
-        {
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=APPGetMemLevelList", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    Log.d("xxLoginS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
-                        String data=jso.getString("data");
-                        Gson gson=new Gson();
-                        Type listType = new TypeToken<List<Dengji>>(){}.getType();
+                    Log.d("xxLoginS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
+                        String data = jso.getString("data");
+                        Gson gson = new Gson();
+                        Type listType = new TypeToken<List<Dengji>>() {
+                        }.getType();
                         list = gson.fromJson(data, listType);
-                        if(type.equals("no")){
+                        if (type.equals("no")) {
 
-                        }else{
+                        } else {
                             DialogUtil.dengjiChoseDialog(VipCardActivity.this, list, 1, new InterfaceBack() {
                                 @Override
                                 public void onResponse(Object response) {
-                                    dengji=(Dengji) response;
+                                    dengji = (Dengji) response;
                                     tv_vipdj.setText(dengji.LevelName);
                                 }
 
@@ -466,31 +461,110 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                                 }
                             });
                         }
-                    }else{
-                        if(type.equals("no")){
+                    } else {
+                        if (type.equals("no")) {
 
-                        }else {
+                        } else {
                             Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }catch (Exception e){
-                    if(type.equals("no")){
+                } catch (Exception e) {
+                    if (type.equals("no")) {
 
-                    }else {
+                    } else {
                         Toast.makeText(ac, "获取会员等级失败，请重新登录", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
-                if(type.equals("no")){
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                if (type.equals("no")) {
 
-                }else {
+                } else {
                     Toast.makeText(ac, "获取会员等级失败，请重新登录", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+
+    String mTagText;
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        //1.获取Tag对象
+        Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        //2.获取Ndef的实例
+        Ndef ndef = Ndef.get(detectedTag);
+        mTagText = ndef.getType() + "\nmaxsize:" + ndef.getMaxSize() + "bytes\n\n";
+        readNfcTag(intent);
+        et_vipcard.setText(mTagText);
+    }
+
+    /**
+     * 读取NFC标签文本数据
+     */
+    private void readNfcTag(Intent intent) {
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
+                    NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage msgs[] = null;
+            int contentSize = 0;
+            if (rawMsgs != null) {
+                msgs = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    msgs[i] = (NdefMessage) rawMsgs[i];
+                    contentSize += msgs[i].toByteArray().length;
+                }
+            }
+            try {
+                if (msgs != null) {
+                    NdefRecord record = msgs[0].getRecords()[0];
+                    String textRecord = parseTextRecord(record);
+                    mTagText += textRecord + "\n\ntext\n" + contentSize + " bytes";
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    /**
+     * 解析NDEF文本数据，从第三个字节开始，后面的文本数据
+     *
+     * @param ndefRecord
+     * @return
+     */
+    public static String parseTextRecord(NdefRecord ndefRecord) {
+        /**
+         * 判断数据是否为NDEF格式
+         */
+        //判断TNF
+        if (ndefRecord.getTnf() != NdefRecord.TNF_WELL_KNOWN) {
+            return null;
+        }
+        //判断可变的长度的类型
+        if (!Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
+            return null;
+        }
+        try {
+            //获得字节数组，然后进行分析
+            byte[] payload = ndefRecord.getPayload();
+            //下面开始NDEF文本数据第一个字节，状态字节
+            //判断文本是基于UTF-8还是UTF-16的，取第一个字节"位与"上16进制的80，16进制的80也就是最高位是1，
+            //其他位都是0，所以进行"位与"运算后就会保留最高位
+            String textEncoding = ((payload[0] & 0x80) == 0) ? "UTF-8" : "UTF-16";
+            //3f最高两位是0，第六位是1，所以进行"位与"运算后获得第六位
+            int languageCodeLength = payload[0] & 0x3f;
+            //下面开始NDEF文本数据第二个字节，语言编码
+            //获得语言编码
+            String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+            //下面开始NDEF文本数据后面的字节，解析出文本
+            String textRecord = new String(payload, languageCodeLength + 1,
+                    payload.length - languageCodeLength - 1, textEncoding);
+            return textRecord;
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 }
