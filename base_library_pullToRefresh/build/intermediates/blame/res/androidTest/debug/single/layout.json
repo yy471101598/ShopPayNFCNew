@@ -4,23 +4,11 @@
         "source": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header.xml"
     },
     {
-        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
-        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
-    },
-    {
         "merged": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
         "source": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     },
     {
-        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
-        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
         "merged": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
         "source": "F:\\mayun\\ShopPayNFC\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
-    },
-    {
-        "merged": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header.xml",
-        "source": "E:\\myproject\\ShopPaynew\\base_library_pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header.xml"
     }
 ]

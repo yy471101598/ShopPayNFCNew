@@ -82,8 +82,15 @@
         <activity
             android:name="com.shoppay.wynew.FastConsumptionActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <!-- 添加这一条默认设置，能拦截当前页面所有扫描NFC的配置 -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.shoppay.wynew.NumConsumptionActivity"
             android:label="@string/app_name"
@@ -92,7 +99,7 @@
         <activity
             android:name="com.shoppay.wynew.VipCardActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
@@ -100,7 +107,10 @@
                 <!-- 添加这一条默认设置，能拦截当前页面所有扫描NFC的配置 -->
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
+            <!--<intent-filter>-->
+                <!--<action android:name="android.nfc.action.TAG_DISCOVERED" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
         <service android:name="com.shoppay.wynew.wxpay.PayResultPollService"></service>
         <receiver android:name="com.shoppay.wynew.wxpay.AlarmReceiver"></receiver>

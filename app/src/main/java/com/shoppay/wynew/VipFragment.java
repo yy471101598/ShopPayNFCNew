@@ -34,6 +34,8 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 import com.shoppay.wynew.bean.FastShopZhehMoney;
 import com.shoppay.wynew.bean.JifenDk;
+import com.shoppay.wynew.bean.ShopCar;
+import com.shoppay.wynew.bean.ShopClass;
 import com.shoppay.wynew.bean.VipInfo;
 import com.shoppay.wynew.card.ReadCardOpt;
 import com.shoppay.wynew.http.InterfaceBack;
@@ -69,10 +71,10 @@ import cz.msebera.android.httpclient.Header;
 
 public class VipFragment extends Fragment implements View.OnClickListener {
     private EditText et_card, et_xfmoney, et_zfmoney, et_yuemoney, et_jfmoney;
-    private TextView tv_vipname, tv_vipjf, tv_zhmoney, tv_maxdk, tv_dkmoney, tv_obtainjf, tv_money, tv_yue, tv_jf,tv_vipyue,tv_wx,tv_jiesuan;
+    private TextView tv_vipname, tv_vipjf, tv_zhmoney, tv_maxdk, tv_dkmoney, tv_obtainjf, tv_money, tv_yue, tv_jf, tv_vipyue, tv_wx, tv_jiesuan;
     private RelativeLayout rl_money, rl_yue, rl_jf, rl_jiesuan, rl_jifen;
-    private boolean isMoney = true, isYue=false, isJifen=false,isWx=false;
-    private RelativeLayout rl_pay_money, rl_pay_yue, rl_pay_jifen, rl_pay_jifenmaxdk, rl_pay_jifendkm,rl_wx;
+    private boolean isMoney = true, isYue = false, isJifen = false, isWx = false;
+    private RelativeLayout rl_pay_money, rl_pay_yue, rl_pay_jifen, rl_pay_jifenmaxdk, rl_pay_jifendkm, rl_wx;
     private String editString;
     private Dialog dialog;
     private String xfmoney;
@@ -87,27 +89,27 @@ public class VipFragment extends Fragment implements View.OnClickListener {
             switch (msg.what) {
                 case 1:
                     VipInfo info = (VipInfo) msg.obj;
-                    if(info.MemState==0){
-                    tv_vipname.setText(info.MemName);
-                    tv_vipjf.setText(info.MemPoint);
-                    tv_vipyue.setText(info.MemMoney);
-                    PreferenceHelper.write(MyApplication.context, "shoppay", "vipcar", et_card.getText().toString());
-                    PreferenceHelper.write(MyApplication.context, "shoppay", "memid",info.MemID+"");
-                    PreferenceHelper.write(MyApplication.context, "shoppay", "vipdengjiid", info.MemLevelID + "");
-                    PreferenceHelper.write(MyApplication.context, "shoppay", "MemMoney", info.MemMoney);
-            }else  if(info.MemState==1) {
-                Toast.makeText(MyApplication.context,"此卡已锁定",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(MyApplication.context,"shoppay","viptoast","此卡已锁定");
+                    if (info.MemState == 0) {
+                        tv_vipname.setText(info.MemName);
+                        tv_vipjf.setText(info.MemPoint);
+                        tv_vipyue.setText(info.MemMoney);
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "vipcar", et_card.getText().toString());
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "memid", info.MemID + "");
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "vipdengjiid", info.MemLevelID + "");
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "MemMoney", info.MemMoney);
+                    } else if (info.MemState == 1) {
+                        Toast.makeText(MyApplication.context, "此卡已锁定", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "此卡已锁定");
                         tv_vipname.setText("");
                         tv_vipjf.setText("");
                         tv_vipyue.setText("");
-            }else{
-                Toast.makeText(MyApplication.context,"此卡已挂失",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(MyApplication.context,"shoppay","viptoast","此卡已挂失");
+                    } else {
+                        Toast.makeText(MyApplication.context, "此卡已挂失", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "此卡已挂失");
                         tv_vipname.setText("");
                         tv_vipjf.setText("");
                         tv_vipyue.setText("");
-            }
+                    }
                     break;
                 case 2:
                     tv_vipname.setText("");
@@ -120,7 +122,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                     FastShopZhehMoney zh = (FastShopZhehMoney) msg.obj;
                     tv_zhmoney.setText(StringUtil.twoNum(zh.Money));
                     et_zfmoney.setText(StringUtil.twoNum(zh.Money));
-                    tv_obtainjf.setText(Integer.parseInt(zh.Point)+"");
+                    tv_obtainjf.setText(Integer.parseInt(zh.Point) + "");
                     break;
                 case 4:
                     tv_zhmoney.setText("0.00");
@@ -134,13 +136,18 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                 case 6:
                     tv_maxdk.setText("");
                     break;
-
+                case 8:
+                    String card = msg.obj.toString();
+                    Log.d("xxxx", card);
+                    et_card.setText(card);
+                    break;
             }
         }
     };
     private MsgReceiver msgReceiver;
     private Intent intent;
     private Dialog weixinDialog;
+    private ShopChangeReceiver shopchangeReceiver;
 
     @Nullable
     @Override
@@ -151,7 +158,13 @@ public class VipFragment extends Fragment implements View.OnClickListener {
         PreferenceHelper.write(MyApplication.context, "shoppay", "memid", "123");
         PreferenceHelper.write(MyApplication.context, "shoppay", "vipdengjiid", "123");
         PreferenceHelper.write(MyApplication.context, "shoppay", "jifenpercent", "123");
-        PreferenceHelper.write(MyApplication.context,"shoppay","viptoast","未查询到会员");
+        PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "未查询到会员");
+
+        // 注册广播
+        shopchangeReceiver = new ShopChangeReceiver();
+        IntentFilter iiiff = new IntentFilter();
+        iiiff.addAction("com.shoppay.wy.fastvipcard");
+        getActivity().registerReceiver(shopchangeReceiver, iiiff);
         et_zfmoney.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -175,10 +188,10 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         if (et_zfmoney.getText().toString() == null || et_zfmoney.getText().toString().equals("")) {
                             money = 0;
                         } else {
-                            try{
+                            try {
                                 money = Double.parseDouble(editable.toString());
-                            }catch (Exception e){
-                                money=0;
+                            } catch (Exception e) {
+                                money = 0;
                             }
                         }
                         if (et_jfmoney.getText().toString() == null || et_jfmoney.getText().toString().equals("")) {
@@ -186,22 +199,22 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                             dkmoney = 0;
                             tv_dkmoney.setText("0");
                         } else {
-                            try{
+                            try {
                                 jifen = Double.parseDouble(et_jfmoney.getText().toString());
                                 dkmoney = jifen * Double.parseDouble(PreferenceHelper.readString(MyApplication.context, "shoppay", "jifenpercent", "1"));
                                 tv_dkmoney.setText(dkmoney + "");
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 jifen = 0;
-                                dkmoney =0;
+                                dkmoney = 0;
                                 tv_dkmoney.setText(dkmoney + "");
                             }
                         }
                         if (et_yuemoney.getText().toString() == null || et_yuemoney.getText().toString().equals("")) {
                             yue = 0;
                         } else {
-                            try{
+                            try {
                                 yue = Double.parseDouble(et_yuemoney.getText().toString());
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 yue = 0;
                             }
                         }
@@ -237,11 +250,11 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         if (et_yuemoney.getText().toString() == null || et_yuemoney.getText().toString().equals("")) {
                             yue = 0;
                         } else {
-                          try {
-                              yue = Double.parseDouble(et_yuemoney.getText().toString());
-                          }catch (Exception e){
-                              yue = 0;
-                          }
+                            try {
+                                yue = Double.parseDouble(et_yuemoney.getText().toString());
+                            } catch (Exception e) {
+                                yue = 0;
+                            }
                         }
                         if (et_jfmoney.getText().toString() == null || et_jfmoney.getText().toString().equals("")) {
                             jifen = 0;
@@ -252,7 +265,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                                 jifen = Double.parseDouble(et_jfmoney.getText().toString());
                                 dkmoney = jifen * Double.parseDouble(PreferenceHelper.readString(MyApplication.context, "shoppay", "jifenpercent", "1"));
                                 tv_dkmoney.setText(dkmoney + "");
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 jifen = 0;
                                 dkmoney = 0;
                                 tv_dkmoney.setText(dkmoney + "");
@@ -263,7 +276,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         } else {
                             try {
                                 money = Double.parseDouble(et_zfmoney.getText().toString());
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 money = 0;
                             }
                         }
@@ -293,7 +306,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
 
                 } else {
                     if (tv_zhmoney.getText().toString().equals("0.00") || tv_zhmoney.getText().toString().equals("") ||
-                           tv_maxdk.getText().toString().equals("")) {
+                            tv_maxdk.getText().toString().equals("")) {
                         Toast.makeText(MyApplication.context, "请先输入消费金额，获取折后金额", Toast.LENGTH_SHORT).show();
                         et_jfmoney.setText("");
                     } else {
@@ -307,7 +320,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                                 jifen = Double.parseDouble(editable.toString());
                                 dkmoney = jifen * Double.parseDouble(PreferenceHelper.readString(MyApplication.context, "shoppay", "jifenpercent", "1"));
                                 tv_dkmoney.setText(dkmoney + "");
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 jifen = 0;
                                 dkmoney = 0;
                                 tv_dkmoney.setText(dkmoney + "");
@@ -318,7 +331,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         } else {
                             try {
                                 money = Double.parseDouble(et_zfmoney.getText().toString());
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 money = 0;
                             }
                         }
@@ -327,7 +340,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         } else {
                             try {
                                 yue = Double.parseDouble(et_yuemoney.getText().toString());
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 yue = 0;
                             }
                         }
@@ -389,7 +402,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
 
                 } else {
                     if (PreferenceHelper.readString(MyApplication.context, "shoppay", "vipdengjiid", "123").equals("123")) {
-                        Toast.makeText(MyApplication.context,PreferenceHelper.readString(MyApplication.context,"shoppay","viptoast","未查询到会员"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyApplication.context, PreferenceHelper.readString(MyApplication.context, "shoppay", "viptoast", "未查询到会员"), Toast.LENGTH_SHORT).show();
                         et_xfmoney.setText("");
                     } else {
                         if (moneyrun != null) {
@@ -398,16 +411,15 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         }
                         xfmoney = editable.toString();
                         try {
-                             Double.parseDouble(xfmoney);
+                            Double.parseDouble(xfmoney);
                             handler.postDelayed(moneyrun, 800);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                         }
                         //延迟800ms，如果不再输入字符，则执行该线程的run方法
                     }
                 }
             }
         });
-
 
 
         PreferenceHelper.write(getActivity(), "PayOk", "time", "false");
@@ -419,6 +431,19 @@ public class VipFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private class ShopChangeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String card = intent.getStringExtra("card");
+            Message msg = handler.obtainMessage();
+            msg.what = 8;
+            msg.obj = card;
+            handler.sendMessage(msg);
+        }
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -428,12 +453,9 @@ public class VipFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStop() {
         //终止检卡
-        try
-        {
+        try {
             new ReadCardOpt().overReadCard();
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         super.onStop();
@@ -653,7 +675,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_jifen:
-                if (!isMoney && !isYue&&!isWx) {
+                if (!isMoney && !isYue && !isWx) {
                     Toast.makeText(MyApplication.context, "至少选择一种支付方式", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isJifen) {
@@ -665,8 +687,8 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         rl_pay_jifendkm.setVisibility(View.GONE);
                         et_jfmoney.setText("");
                         tv_dkmoney.setText("");
-                        jifen=0;
-                        dkmoney=0;
+                        jifen = 0;
+                        dkmoney = 0;
                     } else {
                         rl_jifen.setBackgroundColor(getResources().getColor(R.color.theme_red));
                         tv_jf.setTextColor(getResources().getColor(R.color.white));
@@ -682,7 +704,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_yue:
-                if (!isJifen && !isMoney&&!isWx) {
+                if (!isJifen && !isMoney && !isWx) {
                     Toast.makeText(MyApplication.context, "至少选择一种支付方式", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isYue) {
@@ -691,7 +713,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         isYue = false;
                         rl_pay_yue.setVisibility(View.GONE);
                         et_yuemoney.setText("");
-                        yue=0;
+                        yue = 0;
                     } else {
                         rl_yue.setBackgroundColor(getResources().getColor(R.color.theme_red));
                         tv_yue.setTextColor(getResources().getColor(R.color.white));
@@ -705,22 +727,22 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_wx:
-                    if (isWx) {
-                        Toast.makeText(MyApplication.context, "至少选择一种支付方式", Toast.LENGTH_SHORT).show();
+                if (isWx) {
+                    Toast.makeText(MyApplication.context, "至少选择一种支付方式", Toast.LENGTH_SHORT).show();
 //                        rl_wx.setBackgroundColor(getResources().getColor(R.color.white));
 //                        tv_wx.setTextColor(getResources().getColor(R.color.text_30));
 //                        isWx = false;
 //                        tv_jiesuan.setText("结算");
-                    } else {
-                        rl_wx.setBackgroundColor(getResources().getColor(R.color.theme_red));
-                        tv_wx.setTextColor(getResources().getColor(R.color.white));
-                        tv_jiesuan.setText("扫码支付");
-                        isWx = true;
-                        resetPayType();
-                    }
+                } else {
+                    rl_wx.setBackgroundColor(getResources().getColor(R.color.theme_red));
+                    tv_wx.setTextColor(getResources().getColor(R.color.white));
+                    tv_jiesuan.setText("扫码支付");
+                    isWx = true;
+                    resetPayType();
+                }
                 break;
             case R.id.rl_money:
-                if (!isJifen && !isYue&&!isWx) {
+                if (!isJifen && !isYue && !isWx) {
                     Toast.makeText(MyApplication.context, "至少选择一种支付方式", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isMoney) {
@@ -728,7 +750,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                         tv_money.setTextColor(getResources().getColor(R.color.text_30));
                         isMoney = false;
                         et_zfmoney.setText("");
-                        money=0;
+                        money = 0;
                         rl_pay_money.setVisibility(View.GONE);
                     } else {
                         rl_money.setBackgroundColor(getResources().getColor(R.color.theme_red));
@@ -759,15 +781,15 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     if (CommonUtils.checkNet(MyApplication.context)) {
-                            Log.d("xxx", Double.parseDouble(tv_zhmoney.getText().toString()) + ";" + money + ";" + yue + ";" + dkmoney);
-                        if(isWx){
+                        Log.d("xxx", Double.parseDouble(tv_zhmoney.getText().toString()) + ";" + money + ";" + yue + ";" + dkmoney);
+                        if (isWx) {
                             PreferenceHelper.write(getActivity(), "shoppay", "fasttype", "vip");
-                            PreferenceHelper.write(getActivity(), "shoppay", "WxOrder", System.currentTimeMillis()+  PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
-                            ImpWeixinPay weixinPay =new ImpWeixinPay();
-                            weixinPay.weixinPay(getActivity(), tv_zhmoney.getText().toString(),"","快速消费", new InterfaceMVC() {
+                            PreferenceHelper.write(getActivity(), "shoppay", "WxOrder", System.currentTimeMillis() + PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
+                            ImpWeixinPay weixinPay = new ImpWeixinPay();
+                            weixinPay.weixinPay(getActivity(), tv_zhmoney.getText().toString(), "", "快速消费", new InterfaceMVC() {
                                 @Override
                                 public void onResponse(int code, Object response) {
-                                    weixinDialog= WeixinPayDialog.weixinPayDialog(getActivity(),1,(String)response, tv_zhmoney.getText().toString());
+                                    weixinDialog = WeixinPayDialog.weixinPayDialog(getActivity(), 1, (String) response, tv_zhmoney.getText().toString());
                                     intent = new Intent(getActivity(),
                                             PayResultPollService.class);
                                     getActivity().startService(intent);
@@ -778,7 +800,7 @@ public class VipFragment extends Fragment implements View.OnClickListener {
 
                                 }
                             });
-                        }else {
+                        } else {
                             if (Double.parseDouble(tv_zhmoney.getText().toString()) - money - yue - dkmoney < 0) {
                                 Toast.makeText(MyApplication.context, "超过折后金额，请检查输入信息",
                                         Toast.LENGTH_SHORT).show();
@@ -817,9 +839,9 @@ public class VipFragment extends Fragment implements View.OnClickListener {
     }
 
     private void resetPayType() {
-        isYue=false;
-        isJifen=false;
-        isMoney=false;
+        isYue = false;
+        isJifen = false;
+        isMoney = false;
         rl_jifen.setBackgroundColor(getResources().getColor(R.color.white));
         tv_jf.setTextColor(getResources().getColor(R.color.text_30));
         rl_pay_jifenmaxdk.setVisibility(View.GONE);
@@ -827,17 +849,17 @@ public class VipFragment extends Fragment implements View.OnClickListener {
         rl_pay_jifendkm.setVisibility(View.GONE);
         et_jfmoney.setText("");
         tv_dkmoney.setText("");
-        jifen=0;
-        dkmoney=0;
+        jifen = 0;
+        dkmoney = 0;
         rl_yue.setBackgroundColor(getResources().getColor(R.color.white));
         tv_yue.setTextColor(getResources().getColor(R.color.text_30));
         rl_pay_yue.setVisibility(View.GONE);
         et_yuemoney.setText("");
-        yue=0;
+        yue = 0;
         rl_money.setBackgroundColor(getResources().getColor(R.color.white));
         tv_money.setTextColor(getResources().getColor(R.color.text_30));
         et_zfmoney.setText("");
-        money=0;
+        money = 0;
         rl_pay_money.setVisibility(View.GONE);
     }
 
@@ -875,15 +897,15 @@ public class VipFragment extends Fragment implements View.OnClickListener {
             params.put("bolIsCash", 1);
             params.put("CashPayMoney", et_zfmoney.getText().toString());
         }
-        if(isWx){
-            params.put("bolIsWeiXin",1);//1：真 0：假
-            params.put("WeiXinPayMoney",tv_zhmoney.getText().toString());
-        }else{
-            params.put("bolIsWeiXin",0);//1：真 0：假
-            params.put("WeiXinPayMoney",0);
+        if (isWx) {
+            params.put("bolIsWeiXin", 1);//1：真 0：假
+            params.put("WeiXinPayMoney", tv_zhmoney.getText().toString());
+        } else {
+            params.put("bolIsWeiXin", 0);//1：真 0：假
+            params.put("WeiXinPayMoney", 0);
         }
-        Gson gson=new Gson();
-        Log.d("xx",params.toString());
+        Gson gson = new Gson();
+        Log.d("xx", params.toString());
         client.post(PreferenceHelper.readString(MyApplication.context, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppShopFastExpense", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -892,17 +914,17 @@ public class VipFragment extends Fragment implements View.OnClickListener {
                     LogUtils.d("xxjiesuanS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-                            PreferenceHelper.write(MyApplication.context, "shoppay", "OrderAccount", jso.getJSONObject("data").getString("OrderAccount"));
-                            Toast.makeText(MyApplication.context, "结算成功",
-                                    Toast.LENGTH_LONG).show();
-                        BluetoothAdapter  bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
-                        if(bluetoothAdapter.isEnabled()) {
+                        PreferenceHelper.write(MyApplication.context, "shoppay", "OrderAccount", jso.getJSONObject("data").getString("OrderAccount"));
+                        Toast.makeText(MyApplication.context, "结算成功",
+                                Toast.LENGTH_LONG).show();
+                        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                        if (bluetoothAdapter.isEnabled()) {
                             if (PreferenceHelper.readBoolean(MyApplication.context, "shoppay", "IsPrint", false)) {
                                 BluetoothUtil.connectBlueTooth(MyApplication.context);
                                 BluetoothUtil.sendData(printReceipt_BlueTooth(), PreferenceHelper.readInt(MyApplication.context, "shoppay", "FastExpenesPrintNumber", 1));
                             }
                             ActivityStack.create().finishActivity(FastConsumptionActivity.class);
-                        }else {
+                        } else {
                             ActivityStack.create().finishActivity(FastConsumptionActivity.class);
                         }
 
@@ -918,24 +940,23 @@ public class VipFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                LogUtils.d("xxjiesuanE",error.getMessage());
+                LogUtils.d("xxjiesuanE", error.getMessage());
                 Toast.makeText(MyApplication.context, "结算失败，请重新结算",
                         Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public byte[] printReceipt_BlueTooth()
-    {
-        String danhao = "消费单号:" + PreferenceHelper.readString(MyApplication.context, "shoppay","OrderAccount","");
-        String huiyuankahao = "会员卡号:" + et_card.getText().toString();
-        String huiyuanming = "会员名称:" +tv_vipname.getText().toString();
 
-        try
-        {
+    public byte[] printReceipt_BlueTooth() {
+        String danhao = "消费单号:" + PreferenceHelper.readString(MyApplication.context, "shoppay", "OrderAccount", "");
+        String huiyuankahao = "会员卡号:" + et_card.getText().toString();
+        String huiyuanming = "会员名称:" + tv_vipname.getText().toString();
+
+        try {
             byte[] next2Line = ESCUtil.nextLine(2);
             //            byte[] title = titleset.getBytes("gb2312");
-            byte[] title = PreferenceHelper.readString(MyApplication.context,"shoppay","PrintTitle","").getBytes("gb2312");
-            byte[] bottom = PreferenceHelper.readString(MyApplication.context,"shoppay","PrintFootNote","").getBytes("gb2312");
+            byte[] title = PreferenceHelper.readString(MyApplication.context, "shoppay", "PrintTitle", "").getBytes("gb2312");
+            byte[] bottom = PreferenceHelper.readString(MyApplication.context, "shoppay", "PrintFootNote", "").getBytes("gb2312");
             byte[] tickname = "快速消费小票".getBytes("gb2312");
             byte[] ordernum = danhao.getBytes("gb2312");
             byte[] vipcardnum = huiyuankahao.getBytes("gb2312");
@@ -960,72 +981,72 @@ public class VipFragment extends Fragment implements View.OnClickListener {
             byte[] breakPartial = ESCUtil.feedPaperCutPartial();
             byte[][] mytitle = {nextLine, center, boldOn, title, boldOff, next2Line, left, tickname, nextLine, left, ordernum, nextLine, left,
                     vipcardnum, nextLine,
-                    left, vipname,nextLine,xiahuaxian};
+                    left, vipname, nextLine, xiahuaxian};
 
-            byte[] headerBytes =ESCUtil. byteMerger(mytitle);
+            byte[] headerBytes = ESCUtil.byteMerger(mytitle);
             List<byte[]> bytesList = new ArrayList<>();
             bytesList.add(headerBytes);
             //商品头
-            byte[] xfmoney =( "消费金额:" +StringUtil.twoNum(et_xfmoney.getText().toString())).getBytes("gb2312");
-            byte[] hasjifen =( "获得积分:" +tv_obtainjf.getText().toString()).getBytes("gb2312");
-            byte[][] mticket1 = {nextLine, left, xfmoney,nextLine,left,hasjifen};
+            byte[] xfmoney = ("消费金额:" + StringUtil.twoNum(et_xfmoney.getText().toString())).getBytes("gb2312");
+            byte[] hasjifen = ("获得积分:" + tv_obtainjf.getText().toString()).getBytes("gb2312");
+            byte[][] mticket1 = {nextLine, left, xfmoney, nextLine, left, hasjifen};
             bytesList.add(ESCUtil.byteMerger(mticket1));
 
 
-            byte[][] mtickets = {nextLine,xiahuaxian};
+            byte[][] mtickets = {nextLine, xiahuaxian};
             bytesList.add(ESCUtil.byteMerger(mtickets));
 
-            byte[] yfmoney =( "应付金额:" +StringUtil.twoNum(tv_zhmoney.getText().toString())).getBytes("gb2312");
-            double xx=Double.parseDouble(et_xfmoney.getText().toString());
-            double zh=Double.parseDouble(tv_zhmoney.getText().toString());
-            Log.d("xxx",xx+";"+zh);
-            if(!isWx) {
+            byte[] yfmoney = ("应付金额:" + StringUtil.twoNum(tv_zhmoney.getText().toString())).getBytes("gb2312");
+            double xx = Double.parseDouble(et_xfmoney.getText().toString());
+            double zh = Double.parseDouble(tv_zhmoney.getText().toString());
+            Log.d("xxx", xx + ";" + zh);
+            if (!isWx) {
                 byte[] jinshengmoney = ("节省金额:" + StringUtil.twoNum(Double.toString(CommonUtils.del(xx, zh)))).getBytes("gb2312");
 
                 byte[][] mticketsn = {nextLine, left, yfmoney, nextLine, left, jinshengmoney};
                 bytesList.add(ESCUtil.byteMerger(mticketsn));
             }
-            if(isMoney){
-                byte[] moneys=( "现金支付:" +StringUtil.twoNum(et_zfmoney.getText().toString())).getBytes("gb2312");
-                byte[][] mticketsm= {nextLine,left,moneys};
+            if (isMoney) {
+                byte[] moneys = ("现金支付:" + StringUtil.twoNum(et_zfmoney.getText().toString())).getBytes("gb2312");
+                byte[][] mticketsm = {nextLine, left, moneys};
                 bytesList.add(ESCUtil.byteMerger(mticketsm));
             }
-            if(isWx){
-                byte[] weixin=( "微信支付:" +StringUtil.twoNum(tv_zhmoney.getText().toString())).getBytes("gb2312");
-                byte[][] weixins= {nextLine,left,weixin};
+            if (isWx) {
+                byte[] weixin = ("微信支付:" + StringUtil.twoNum(tv_zhmoney.getText().toString())).getBytes("gb2312");
+                byte[][] weixins = {nextLine, left, weixin};
                 bytesList.add(ESCUtil.byteMerger(weixins));
             }
-            if(isYue){
-                byte[] yue=( "余额支付:" +StringUtil.twoNum(et_yuemoney.getText().toString())).getBytes("gb2312");
-                byte[][] mticketyue= {nextLine,left,yue};
+            if (isYue) {
+                byte[] yue = ("余额支付:" + StringUtil.twoNum(et_yuemoney.getText().toString())).getBytes("gb2312");
+                byte[][] mticketyue = {nextLine, left, yue};
                 bytesList.add(ESCUtil.byteMerger(mticketyue));
             }
-            if(isJifen){
-                byte[] jifen=( "积分抵扣:" +tv_dkmoney.getText().toString()).getBytes("gb2312");
-                byte[][] mticketjin= {nextLine,left,jifen};
+            if (isJifen) {
+                byte[] jifen = ("积分抵扣:" + tv_dkmoney.getText().toString()).getBytes("gb2312");
+                byte[][] mticketjin = {nextLine, left, jifen};
                 bytesList.add(ESCUtil.byteMerger(mticketjin));
             }
             double syjf = Double.parseDouble(tv_vipjf.getText().toString()) - jifen + Double.parseDouble(tv_obtainjf.getText().toString());
 
-            Log.d("xxx",tv_vipjf.getText().toString()+";"+jifen+";"+et_jfmoney.getText().toString());
-            byte[] syjinfen=( "剩余积分:" +(int)syjf).getBytes("gb2312");
-            byte[][] mticketsyjf= {nextLine,left,syjinfen};
+            Log.d("xxx", tv_vipjf.getText().toString() + ";" + jifen + ";" + et_jfmoney.getText().toString());
+            byte[] syjinfen = ("剩余积分:" + (int) syjf).getBytes("gb2312");
+            byte[][] mticketsyjf = {nextLine, left, syjinfen};
             bytesList.add(ESCUtil.byteMerger(mticketsyjf));
-            double yuemoney=0;
-            if(et_yuemoney.getText().toString()==null||et_yuemoney.getText().toString().equals("")){
-            }else{
-                yuemoney=Double.parseDouble(et_yuemoney.getText().toString());
+            double yuemoney = 0;
+            if (et_yuemoney.getText().toString() == null || et_yuemoney.getText().toString().equals("")) {
+            } else {
+                yuemoney = Double.parseDouble(et_yuemoney.getText().toString());
             }
-            if(isYue) {
-                double sy = CommonUtils.del(Double.parseDouble(PreferenceHelper.readString(MyApplication.context, "shoppay", "MemMoney", "0")) , yuemoney);
-                byte[] shengyu = ("卡内余额:" + StringUtil.twoNum(sy+"")).getBytes("gb2312");
+            if (isYue) {
+                double sy = CommonUtils.del(Double.parseDouble(PreferenceHelper.readString(MyApplication.context, "shoppay", "MemMoney", "0")), yuemoney);
+                byte[] shengyu = ("卡内余额:" + StringUtil.twoNum(sy + "")).getBytes("gb2312");
                 byte[][] mticketsy = {nextLine, left, shengyu};
                 bytesList.add(ESCUtil.byteMerger(mticketsy));
             }
-            byte[] ha=( "操作人员:"+PreferenceHelper.readString(MyApplication.context
-                    ,"shoppay","UserName","")).trim().getBytes("gb2312");
-            byte[] time=( "消费时间:"+getStringDate()).trim().getBytes("gb2312");
-            byte[] qianming=( "客户签名:").getBytes("gb2312");
+            byte[] ha = ("操作人员:" + PreferenceHelper.readString(MyApplication.context
+                    , "shoppay", "UserName", "")).trim().getBytes("gb2312");
+            byte[] time = ("消费时间:" + getStringDate()).trim().getBytes("gb2312");
+            byte[] qianming = ("客户签名:").getBytes("gb2312");
 
             byte[][] footerBytes = {nextLine, left, ha, nextLine, left, time, nextLine, left, qianming, nextLine, left,
                     nextLine, left, nextLine, left, bottom, next2Line, next4Line, breakPartial};
@@ -1035,14 +1056,13 @@ public class VipFragment extends Fragment implements View.OnClickListener {
 
             //            bluetoothUtil.send(MergeLinearArraysUtil.mergeLinearArrays(bytesList));
 
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            Log.d("xx","UnsupportedEncodingException");
+            Log.d("xx", "UnsupportedEncodingException");
         }
         return null;
     }
+
     public static String getStringDate() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -1063,16 +1083,16 @@ public class VipFragment extends Fragment implements View.OnClickListener {
             //拿到进度，更新UI
             String state = intent.getStringExtra("success");
             Log.d("MsgReceiver", "MsgReceiver" + state);
-           String type= PreferenceHelper.readString(getActivity(),"shoppay","fasttype","vip");
-            Log.d("xxxx",type);
-            if(type.equals("vip")) {
+            String type = PreferenceHelper.readString(getActivity(), "shoppay", "fasttype", "vip");
+            Log.d("xxxx", type);
+            if (type.equals("vip")) {
                 if (state == null || state.equals("")) {
 
                 } else {
                     if (state.equals("success")) {
                         //支付成功，跳转
                         weixinDialog.dismiss();
-                    jiesuan();
+                        jiesuan();
                     } else {
                         String msg = intent.getStringExtra("msg");
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
@@ -1092,10 +1112,11 @@ public class VipFragment extends Fragment implements View.OnClickListener {
 
             getActivity().stopService(intent);
         }
+        getActivity().unregisterReceiver(shopchangeReceiver);
 
         //关闭闹钟机制启动service
-        AlarmManager manager = (AlarmManager)getActivity(). getSystemService(Context.ALARM_SERVICE);
-        int anHour =2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
+        AlarmManager manager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        int anHour = 2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(getActivity(), AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0, i, 0);
