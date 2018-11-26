@@ -83,21 +83,21 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         >
-        <com.shoppay.wynew.view.wheelview.WheelView
+        <com.shoppay.wynfc.view.wheelview.WheelView
             android:id="@+id/wl_year"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="130dp"
             android:layout_gravity="center_vertical"
             />
-        <com.shoppay.wynew.view.wheelview.WheelView
+        <com.shoppay.wynfc.view.wheelview.WheelView
             android:id="@+id/wl_month"
             android:layout_width="wrap_content"
             android:layout_height="130dp"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             />
-        <com.shoppay.wynew.view.wheelview.WheelView
+        <com.shoppay.wynfc.view.wheelview.WheelView
             android:id="@+id/wl_day"
             android:layout_width="wrap_content"
             android:layout_height="130dp"

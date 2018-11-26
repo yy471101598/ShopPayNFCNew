@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shoppay.wynew">
+    package="com.shoppay.wynfc">
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
@@ -11,13 +11,13 @@
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="25" />
     <application
-        android:name="com.shoppay.wynew.MyApplication"
+        android:name="com.shoppay.wynfc.MyApplication"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:allowBackup="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name="com.shoppay.wynew.SplashActivity"
+        <activity android:name="com.shoppay.wynfc.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
 
@@ -30,42 +30,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shoppay.wynew.HomeActivity"
+            android:name="com.shoppay.wynfc.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.LoginActivity"
+            android:name="com.shoppay.wynfc.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.NumRechargeActivity"
+            android:name="com.shoppay.wynfc.NumRechargeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.HomeOldActivity"
+            android:name="com.shoppay.wynfc.HomeOldActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.NewBossCenterActivity"
+            android:name="com.shoppay.wynfc.NewBossCenterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.VipListActivity"
+            android:name="com.shoppay.wynfc.VipListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.VipDetailActivity"
+            android:name="com.shoppay.wynfc.VipDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.VipRechargeActivity"
+            android:name="com.shoppay.wynfc.VipRechargeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
@@ -75,12 +75,12 @@
             <!--android:screenOrientation="portrait"-->
             <!--android:theme="@android:style/Theme.Holo.Light.NoActionBar" />-->
         <activity
-            android:name="com.shoppay.wynew.BalanceActivity"
+            android:name="com.shoppay.wynfc.BalanceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.FastConsumptionActivity"
+            android:name="com.shoppay.wynfc.FastConsumptionActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -92,12 +92,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shoppay.wynew.NumConsumptionActivity"
+            android:name="com.shoppay.wynfc.NumConsumptionActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.shoppay.wynew.VipCardActivity"
+            android:name="com.shoppay.wynfc.VipCardActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -112,8 +112,8 @@
                 <!--<category android:name="android.intent.category.DEFAULT" />-->
             <!--</intent-filter>-->
         </activity>
-        <service android:name="com.shoppay.wynew.wxpay.PayResultPollService"></service>
-        <receiver android:name="com.shoppay.wynew.wxpay.AlarmReceiver"></receiver>
+        <service android:name="com.shoppay.wynfc.wxpay.PayResultPollService"></service>
+        <receiver android:name="com.shoppay.wynfc.wxpay.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

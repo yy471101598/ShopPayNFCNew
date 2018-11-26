@@ -439,7 +439,7 @@
         android:background="@color/viewcolor"></View>
 
 
-    <com.shoppay.wynew.view.MyGridViews
+    <com.shoppay.wynfc.view.MyGridViews
         android:id="@+id/gridview_cz"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -469,7 +469,7 @@
 
     </RelativeLayout>
 
-    <com.shoppay.wynew.view.MyGridViews
+    <com.shoppay.wynfc.view.MyGridViews
         android:id="@+id/gridview_xf"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -497,7 +497,7 @@
             android:textSize="15sp" />
 
     </RelativeLayout>
-    <com.shoppay.wynew.view.MyGridViews
+    <com.shoppay.wynfc.view.MyGridViews
         android:id="@+id/gridview_all"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

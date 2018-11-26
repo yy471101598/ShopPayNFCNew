@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:background="@color/theme_red"
         android:layout_height="100dp">
-    <com.shoppay.wynew.view.RoundImageView
+    <com.shoppay.wynfc.view.RoundImageView
         android:id="@+id/item_viplist_img"
         android:layout_width="65dp"
         android:layout_height="65dp"
