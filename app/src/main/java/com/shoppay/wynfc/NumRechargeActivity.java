@@ -299,25 +299,28 @@ public class NumRechargeActivity extends Activity implements
         }
     }
 
+
     //获取系统隐式启动的
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        String CardId = ByteArrayToHexString(tagFromIntent.getId());
-        if (null != CardId) {
-            Log.d("xxnfccard",Long.parseLong(CardId, 16)+"");
-            Message msg=handler.obtainMessage();
-            msg.what=5;
-            msg.obj=CardId;
-            handler.sendMessage(msg);
+        if (tagFromIntent!=null) {
+            String CardId = ByteArrayToHex(tagFromIntent.getId());
+            if (null != CardId) {
+                Log.d("xxnfccard", Long.parseLong(CardId, 16) + "");
+                Message msg = handler.obtainMessage();
+                msg.what = 5;
+                msg.obj = CardId;
+                handler.sendMessage(msg);
+            }
         }
     }
-    private String ByteArrayToHexString(byte[] inarray) {
-        int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
-                "B", "C", "D", "E", "F"};
-        String out = "";
 
+
+    public static  String ByteArrayToHex(byte[] inarray) {
+        int i, j, in;
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9","A","B","C","D","E","F"};
+        String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
             in = (int) inarray[j] & 0xff;
@@ -326,8 +329,12 @@ public class NumRechargeActivity extends Activity implements
             i = in & 0x0f;
             out += hex[i];
         }
+        long x = Long.parseLong(out,  16);
+//        int x = Integer.parseInt(out,16);
+        out = String.valueOf(x);
         return out;
     }
+
     @Override
     protected void onStop() {
         //终止检卡

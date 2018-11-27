@@ -1,11 +1,6 @@
 package com.shoppay.wynfc;
 
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -22,8 +17,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -33,6 +28,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shoppay.wynfc.tools.ActivityStack;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FastConsumptionActivity extends FragmentActivity implements
         OnClickListener, OnPageChangeListener {
@@ -75,10 +74,12 @@ public class FastConsumptionActivity extends FragmentActivity implements
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        String CardId = ByteArrayToHexString(tagFromIntent.getId());
-        if (null != CardId) {
-            bcintent.putExtra("card", CardId);
-            sendBroadcast(bcintent);
+        if (null != tagFromIntent) {
+            String CardId = ByteArrayToHex(tagFromIntent.getId());
+            if (null != CardId) {
+                bcintent.putExtra("card", CardId);
+                sendBroadcast(bcintent);
+            }
         }
     }
 
@@ -100,12 +101,11 @@ public class FastConsumptionActivity extends FragmentActivity implements
         }
     }
 
-    private String ByteArrayToHexString(byte[] inarray) {
-        int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
-                "B", "C", "D", "E", "F"};
-        String out = "";
 
+    public static String ByteArrayToHex(byte[] inarray) {
+        int i, j, in;
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+        String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
             in = (int) inarray[j] & 0xff;
@@ -114,6 +114,9 @@ public class FastConsumptionActivity extends FragmentActivity implements
             i = in & 0x0f;
             out += hex[i];
         }
+        long x = Long.parseLong(out, 16);
+//        int x = Integer.parseInt(out,16);
+        out = String.valueOf(x);
         return out;
     }
 
