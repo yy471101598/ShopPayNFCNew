@@ -485,7 +485,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         }
         long x = Long.parseLong(out,  16);
 //        int x = Integer.parseInt(out,16);
-        out = String.valueOf(x);
+        out = String.format("%010d",x);
         return out;
     }
 
