@@ -212,10 +212,7 @@ public class BalanceActivity extends FragmentActivity implements
         super.onResume();
       new ReadCardOpt(et_card);
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
                 Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
-
             return;
         }
         if (!mAdapter.isEnabled()) {

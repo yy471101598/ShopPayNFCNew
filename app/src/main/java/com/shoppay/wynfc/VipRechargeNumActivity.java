@@ -71,8 +71,8 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
                     tv_vipname.setText("获取中");
                     break;
                 case 5:
-                    String card= msg.obj.toString();
-                    Log.d("xxxx",card);
+                    String card = msg.obj.toString();
+                    Log.d("xxxx", card);
                     et_vipcard.setText(card);
                     break;
             }
@@ -80,6 +80,7 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
     };
     private NfcAdapter mAdapter;
     private PendingIntent mPendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,34 +133,34 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
             ontainVipInfo();
         }
     };
+
     private void ontainVipInfo() {
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("memCard",editString);
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler()
-        {
+        params.put("memCard", editString);
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxVipinfoS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
+                    LogUtils.d("xxVipinfoS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<List<VipInfo>>(){}.getType();
+                        Type listType = new TypeToken<List<VipInfo>>() {
+                        }.getType();
                         List<VipInfo> list = gson.fromJson(jso.getString("data"), listType);
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.obj = list.get(0);
                         handler.sendMessage(msg);
-                    }else{
+                    } else {
                         Message msg = handler.obtainMessage();
                         msg.what = 2;
                         handler.sendMessage(msg);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Message msg = handler.obtainMessage();
                     msg.what = 2;
                     handler.sendMessage(msg);
@@ -167,12 +168,11 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Message msg = handler.obtainMessage();
                 msg.what = 2;
                 handler.sendMessage(msg);
-                LogUtils.d("xxVipInfoE",new String(responseBody));
+                LogUtils.d("xxVipInfoE", new String(responseBody));
             }
         });
     }
@@ -188,7 +188,7 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
         tv_line = (TextView) findViewById(R.id.tv_line);
         tv_vipname = (TextView) findViewById(R.id.viprecharge_et_name);
         tv_vipyue = (TextView) findViewById(R.id.viprecharge_et_yue);
-        myGridViews= (MyGridViews) findViewById(R.id.gridview);
+        myGridViews = (MyGridViews) findViewById(R.id.gridview);
 
         tv_title.setText("会员充值");
 
@@ -209,8 +209,7 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
                         || et_vipcard.getText().toString() == null) {
                     Toast.makeText(getApplicationContext(), "请输入会员卡号",
                             Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     if (CommonUtils.checkNet(getApplicationContext())) {
                         try {
                             saveVipCard();
@@ -248,47 +247,41 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
         client.setCookieStore(myCookieStore);
         RequestParams map = new RequestParams();
         map.put("memCard", et_vipcard.getText().toString());//会员卡号
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppMemAdd", map, new AsyncHttpResponseHandler()
-        {
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppMemAdd", map, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     dialog.dismiss();
-                    LogUtils.d("xxsaveVipCardS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
+                    LogUtils.d("xxsaveVipCardS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
                         Toast.makeText(ac, "充值成功", Toast.LENGTH_LONG).show();
                         finish();
-                    }else{
+                    } else {
 
-                            Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
-                        Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
-                    Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ac, "会员充值失败，请重新登录", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         new ReadCardOpt(et_vipcard);
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
-                Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
-
+            Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!mAdapter.isEnabled()) {
@@ -301,6 +294,7 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
             mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -314,7 +308,7 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tagFromIntent!=null) {
+        if (tagFromIntent != null) {
             String CardId = ByteArrayToHex(tagFromIntent.getId());
             if (null != CardId) {
                 Log.d("xxnfccard", Long.parseLong(CardId, 16) + "");
@@ -327,9 +321,9 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
     }
 
 
-    public static  String ByteArrayToHex(byte[] inarray) {
+    public static String ByteArrayToHex(byte[] inarray) {
         int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9","A","B","C","D","E","F"};
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
@@ -339,21 +333,18 @@ public class VipRechargeNumActivity extends Activity implements View.OnClickList
             i = in & 0x0f;
             out += hex[i];
         }
-        long x = Long.parseLong(out,  16);
+        long x = Long.parseLong(out, 16);
 //        int x = Integer.parseInt(out,16);
-        out = String.format("%010d",x);
+        out = String.format("%010d", x);
         return out;
     }
 
     @Override
     protected void onStop() {
         //终止检卡
-        try
-        {
+        try {
             new ReadCardOpt().overReadCard();
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         super.onStop();

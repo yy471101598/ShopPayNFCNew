@@ -81,8 +81,8 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
                     tv_tjname.setText("获取中");
                     break;
                 case 5:
-                   String card= msg.obj.toString();
-                    Log.d("xxxx",card);
+                    String card = msg.obj.toString();
+                    Log.d("xxxx", card);
                     et_vipcard.setText(card);
                     break;
             }
@@ -137,7 +137,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tagFromIntent!=null) {
+        if (tagFromIntent != null) {
             String CardId = ByteArrayToHex(tagFromIntent.getId());
             if (null != CardId) {
                 Log.d("xxnfccard", Long.parseLong(CardId, 16) + "");
@@ -150,9 +150,9 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
     }
 
 
-    public static  String ByteArrayToHex(byte[] inarray) {
+    public static String ByteArrayToHex(byte[] inarray) {
         int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9","A","B","C","D","E","F"};
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
@@ -162,9 +162,9 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
             i = in & 0x0f;
             out += hex[i];
         }
-        long x = Long.parseLong(out,  16);
+        long x = Long.parseLong(out, 16);
 //        int x = Integer.parseInt(out,16);
-        out = String.format("%010d",x);
+        out = String.format("%010d", x);
         return out;
     }
 
@@ -174,10 +174,7 @@ public class VipCardActivity extends Activity implements View.OnClickListener {
         super.onResume();
         new ReadCardOpt(et_vipcard);
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
-                Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
-
+            Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!mAdapter.isEnabled()) {

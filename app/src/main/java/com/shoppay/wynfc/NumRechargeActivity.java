@@ -69,16 +69,14 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 /**
- *
  * @author qdwang
- *
  */
 public class NumRechargeActivity extends Activity implements
-        OnItemClickListener ,View.OnClickListener{
+        OnItemClickListener, View.OnClickListener {
 
     private ListView listView;
-    private RelativeLayout rl_jiesuan,rl_left;
-    private TextView tv_num,tv_money,tv_jifen,tv_title,tv_vipname,tv_vipjifen,tv_vipyue;
+    private RelativeLayout rl_jiesuan, rl_left;
+    private TextView tv_num, tv_money, tv_jifen, tv_title, tv_vipname, tv_vipjifen, tv_vipyue;
     private EditText et_card;
     private Dialog dialog;
     private Context ac;
@@ -86,9 +84,9 @@ public class NumRechargeActivity extends Activity implements
     private String editString;
     private NumRechargeAdapter adapter;
     private List<NumServece> list;
-    private double num=0,money=0,jifen=0,xfmoney=0;
+    private double num = 0, money = 0, jifen = 0, xfmoney = 0;
     private ShopChangeReceiver shopchangeReceiver;
-    private boolean isSuccess=false;
+    private boolean isSuccess = false;
     private Dialog jiesuanDialog;
 
     private Handler handler = new Handler() {
@@ -98,62 +96,62 @@ public class NumRechargeActivity extends Activity implements
             switch (msg.what) {
                 case 1:
                     VipInfo info = (VipInfo) msg.obj;
-                    if(info.MemState==0){
-                    tv_vipname.setText(info.MemName);
-                    tv_vipjifen.setText(info.MemPoint);
-                    tv_vipyue.setText(info.MemMoney);
-                        PreferenceHelper.write(ac, "shoppay", "memid", info.MemID+"");
+                    if (info.MemState == 0) {
+                        tv_vipname.setText(info.MemName);
+                        tv_vipjifen.setText(info.MemPoint);
+                        tv_vipyue.setText(info.MemMoney);
+                        PreferenceHelper.write(ac, "shoppay", "memid", info.MemID + "");
                         PreferenceHelper.write(ac, "shoppay", "vipdengjiid", info.MemLevelID + "");
                         PreferenceHelper.write(ac, "shoppay", "MemMoney", info.MemMoney + "");
-                        PreferenceHelper.write(ac, "shoppay", "jifenall",  info.MemPoint);
-                    PreferenceHelper.write(ac, "shoppay", "vipcar", et_card.getText().toString());
-                    PreferenceHelper.write(ac, "shoppay", "vipname", tv_vipname.getText().toString());
-                    PreferenceHelper.write(ac, "shoppay", "isSuccess", true);
-                    PreferenceHelper.write(ac, "shoppay", "isInput", true);
-                    isSuccess=true;
-            }else  if(info.MemState==1) {
-                Toast.makeText(ac,"此卡已锁定",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(ac,"shoppay","viptoast","此卡已锁定");
+                        PreferenceHelper.write(ac, "shoppay", "jifenall", info.MemPoint);
+                        PreferenceHelper.write(ac, "shoppay", "vipcar", et_card.getText().toString());
+                        PreferenceHelper.write(ac, "shoppay", "vipname", tv_vipname.getText().toString());
+                        PreferenceHelper.write(ac, "shoppay", "isSuccess", true);
+                        PreferenceHelper.write(ac, "shoppay", "isInput", true);
+                        isSuccess = true;
+                    } else if (info.MemState == 1) {
+                        Toast.makeText(ac, "此卡已锁定", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(ac, "shoppay", "viptoast", "此卡已锁定");
                         tv_vipname.setText("");
                         tv_vipjifen.setText("");
                         tv_vipyue.setText("");
                         PreferenceHelper.write(ac, "shoppay", "isSuccess", false);
-                        if(et_card.getText().toString().equals("")||et_card.getText().toString()==null){
+                        if (et_card.getText().toString().equals("") || et_card.getText().toString() == null) {
                             PreferenceHelper.write(ac, "shoppay", "isInput", false);
-                        }else{
+                        } else {
                             PreferenceHelper.write(ac, "shoppay", "isInput", true);
                         }
-                        isSuccess=false;
-            }else{
-                Toast.makeText(ac,"此卡已挂失",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(ac,"shoppay","viptoast","此卡已挂失");
+                        isSuccess = false;
+                    } else {
+                        Toast.makeText(ac, "此卡已挂失", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(ac, "shoppay", "viptoast", "此卡已挂失");
                         tv_vipname.setText("");
                         tv_vipjifen.setText("");
                         tv_vipyue.setText("");
                         PreferenceHelper.write(ac, "shoppay", "isSuccess", false);
-                        if(et_card.getText().toString().equals("")||et_card.getText().toString()==null){
+                        if (et_card.getText().toString().equals("") || et_card.getText().toString() == null) {
                             PreferenceHelper.write(ac, "shoppay", "isInput", false);
-                        }else{
+                        } else {
                             PreferenceHelper.write(ac, "shoppay", "isInput", true);
                         }
-                        isSuccess=false;
-            }
+                        isSuccess = false;
+                    }
                     break;
                 case 2:
                     tv_vipname.setText("");
                     tv_vipjifen.setText("");
                     tv_vipyue.setText("");
                     PreferenceHelper.write(ac, "shoppay", "isSuccess", false);
-                    if(et_card.getText().toString().equals("")||et_card.getText().toString()==null){
+                    if (et_card.getText().toString().equals("") || et_card.getText().toString() == null) {
                         PreferenceHelper.write(ac, "shoppay", "isInput", false);
-                    }else{
+                    } else {
                         PreferenceHelper.write(ac, "shoppay", "isInput", true);
                     }
-                    isSuccess=false;
+                    isSuccess = false;
                     break;
                 case 5:
-                    String card= msg.obj.toString();
-                    Log.d("xxxx",card);
+                    String card = msg.obj.toString();
+                    Log.d("xxxx", card);
                     et_card.setText(card);
                     break;
             }
@@ -165,17 +163,18 @@ public class NumRechargeActivity extends Activity implements
     private VipPayMsg vipPayMsg;
     private NfcAdapter mAdapter;
     private PendingIntent mPendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numrecharge);
-        ac=MyApplication.context;
-       dialog= DialogUtil.loadingDialog(NumRechargeActivity.this,1);
-        dbAdapter=DBAdapter.getInstance(ac);
+        ac = MyApplication.context;
+        dialog = DialogUtil.loadingDialog(NumRechargeActivity.this, 1);
+        dbAdapter = DBAdapter.getInstance(ac);
         PreferenceHelper.write(ac, "shoppay", "memid", "");
-        PreferenceHelper.write(ac, "shoppay", "vipcar","无");
+        PreferenceHelper.write(ac, "shoppay", "vipcar", "无");
         PreferenceHelper.write(ac, "shoppay", "isInput", false);
-        PreferenceHelper.write(MyApplication.context,"shoppay","viptoast","未查询到会员");
+        PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "未查询到会员");
         dbAdapter.deleteShopCar();
         initView();
         Intent nfcIntent = new Intent(this, getClass());
@@ -231,35 +230,33 @@ public class NumRechargeActivity extends Activity implements
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("Key","");
-        params.put("Size",50);
-        params.put("index",1);
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetServiceGoodsList", params, new AsyncHttpResponseHandler()
-        {
+        params.put("Key", "");
+        params.put("Size", 50);
+        params.put("index", 1);
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetServiceGoodsList", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     dialog.dismiss();
-                    LogUtils.d("xxNumshopS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
-                        JSONObject js=jso.getJSONObject("data");
+                    LogUtils.d("xxNumshopS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
+                        JSONObject js = jso.getJSONObject("data");
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<List<Shop>>(){}.getType();
+                        Type listType = new TypeToken<List<Shop>>() {
+                        }.getType();
                         List<Shop> list = gson.fromJson(js.getString("list"), listType);
-                        adapter=new NumRechargeAdapter(NumRechargeActivity.this,list);
+                        adapter = new NumRechargeAdapter(NumRechargeActivity.this, list);
                         listView.setAdapter(adapter);
-                    }else{
+                    } else {
                         Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 dialog.dismiss();
             }
         });
@@ -268,16 +265,13 @@ public class NumRechargeActivity extends Activity implements
     @Override
     protected void onResume() {
         super.onResume();
-      new ReadCardOpt(et_card);
+        new ReadCardOpt(et_card);
         if (delayRun != null) {
             //每次editText有变化的时候，则移除上次发出的延迟线程
             handler.removeCallbacks(delayRun);
         }
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
-                Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
-
+            Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!mAdapter.isEnabled()) {
@@ -290,6 +284,7 @@ public class NumRechargeActivity extends Activity implements
             mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -304,7 +299,7 @@ public class NumRechargeActivity extends Activity implements
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tagFromIntent!=null) {
+        if (tagFromIntent != null) {
             String CardId = ByteArrayToHex(tagFromIntent.getId());
             if (null != CardId) {
                 Log.d("xxnfccard", Long.parseLong(CardId, 16) + "");
@@ -317,9 +312,9 @@ public class NumRechargeActivity extends Activity implements
     }
 
 
-    public static  String ByteArrayToHex(byte[] inarray) {
+    public static String ByteArrayToHex(byte[] inarray) {
         int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9","A","B","C","D","E","F"};
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
@@ -329,21 +324,18 @@ public class NumRechargeActivity extends Activity implements
             i = in & 0x0f;
             out += hex[i];
         }
-        long x = Long.parseLong(out,  16);
+        long x = Long.parseLong(out, 16);
 //        int x = Integer.parseInt(out,16);
-        out = String.format("%010d",x);
+        out = String.format("%010d", x);
         return out;
     }
 
     @Override
     protected void onStop() {
         //终止检卡
-        try
-        {
+        try {
             new ReadCardOpt().overReadCard();
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         super.onStop();
@@ -366,24 +358,23 @@ public class NumRechargeActivity extends Activity implements
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams params = new RequestParams();
-        params.put("memCard",editString);
-        client.post( PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler()
-        {
+        params.put("memCard", editString);
+        client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppGetMem", params, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody)
-            {
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    LogUtils.d("xxVipinfoS",new String(responseBody,"UTF-8"));
-                    JSONObject jso=new JSONObject(new String(responseBody,"UTF-8"));
-                    if(jso.getBoolean("success")){
+                    LogUtils.d("xxVipinfoS", new String(responseBody, "UTF-8"));
+                    JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
+                    if (jso.getBoolean("success")) {
                         Gson gson = new Gson();
-                        Type listType = new TypeToken<List<VipInfo>>(){}.getType();
+                        Type listType = new TypeToken<List<VipInfo>>() {
+                        }.getType();
                         List<VipInfo> list = gson.fromJson(jso.getString("data"), listType);
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         msg.obj = list.get(0);
                         handler.sendMessage(msg);
-                    }else{
+                    } else {
                         PreferenceHelper.write(ac, "shoppay", "memid", "");
                         PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                         Message msg = handler.obtainMessage();
@@ -391,7 +382,7 @@ public class NumRechargeActivity extends Activity implements
                         handler.sendMessage(msg);
 //                        Toast.makeText(ac, jso.getString("msg"), Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     PreferenceHelper.write(ac, "shoppay", "memid", "");
                     PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                     Message msg = handler.obtainMessage();
@@ -401,8 +392,7 @@ public class NumRechargeActivity extends Activity implements
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-            {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 PreferenceHelper.write(ac, "shoppay", "memid", "");
                 PreferenceHelper.write(ac, "shoppay", "vipdengjiid", "123");
                 Message msg = handler.obtainMessage();
@@ -417,25 +407,24 @@ public class NumRechargeActivity extends Activity implements
      */
     private void initView() {
         // TODO Auto-generated method stub
-        rl_left= (RelativeLayout) findViewById(R.id.rl_left);
-        rl_jiesuan= (RelativeLayout) findViewById(R.id.numrecharge_rl_jiesan);
+        rl_left = (RelativeLayout) findViewById(R.id.rl_left);
+        rl_jiesuan = (RelativeLayout) findViewById(R.id.numrecharge_rl_jiesan);
 
-        tv_jifen= (TextView) findViewById(R.id.numrecharge_tv_jifen);
-        tv_vipjifen= (TextView) findViewById(R.id.numrecharge_tv_vipjifen);
-        tv_vipyue= (TextView) findViewById(R.id.numrecharge_tv_vipyue);
-        tv_vipname= (TextView) findViewById(R.id.numrecharge_tv_vipname);
-        tv_num= (TextView) findViewById(R.id.numrecharge_tv_num);
-        tv_money= (TextView) findViewById(R.id.numrecharge_tv_money);
-        tv_title= (TextView) findViewById(R.id.tv_title);
-         tv_title.setText("会员充次");
-        et_card= (EditText) findViewById(R.id.numrecharge_et_card);
+        tv_jifen = (TextView) findViewById(R.id.numrecharge_tv_jifen);
+        tv_vipjifen = (TextView) findViewById(R.id.numrecharge_tv_vipjifen);
+        tv_vipyue = (TextView) findViewById(R.id.numrecharge_tv_vipyue);
+        tv_vipname = (TextView) findViewById(R.id.numrecharge_tv_vipname);
+        tv_num = (TextView) findViewById(R.id.numrecharge_tv_num);
+        tv_money = (TextView) findViewById(R.id.numrecharge_tv_money);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_title.setText("会员充次");
+        et_card = (EditText) findViewById(R.id.numrecharge_et_card);
         listView = (ListView) findViewById(R.id.listview);
 
         rl_left.setOnClickListener(this);
         rl_jiesuan.setOnClickListener(this);
 
         listView.setOnItemClickListener(this);
-
 
 
     }
@@ -449,55 +438,54 @@ public class NumRechargeActivity extends Activity implements
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rl_left:
                 finish();
                 break;
             case R.id.numrecharge_rl_jiesan:
-                if(tv_num.getText().toString().equals("0")){
+                if (tv_num.getText().toString().equals("0")) {
                     Toast.makeText(getApplicationContext(), "请选择商品",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     if (CommonUtils.checkNet(getApplicationContext())) {
-                          if(et_card.getText().toString().equals("")||et_card.getText().toString()==null){
-                              Toast.makeText(ac,"请输入会员卡号",Toast.LENGTH_SHORT).show();
-                          }else{
+                        if (et_card.getText().toString().equals("") || et_card.getText().toString() == null) {
+                            Toast.makeText(ac, "请输入会员卡号", Toast.LENGTH_SHORT).show();
+                        } else {
 
 //
-                       jiesuanDialog=    DialogUtil.jiesuanDialog("num",NumRechargeActivity.this, 1,true,money,xfmoney,jifen, new InterfaceBack() {
-                               @Override
-                               public void onResponse(Object response) {
+                            jiesuanDialog = DialogUtil.jiesuanDialog("num", NumRechargeActivity.this, 1, true, money, xfmoney, jifen, new InterfaceBack() {
+                                @Override
+                                public void onResponse(Object response) {
 
-                                   finish();
-                               }
+                                    finish();
+                                }
 
-                               @Override
-                               public void onErrorResponse(Object msg) {
+                                @Override
+                                public void onErrorResponse(Object msg) {
 
-                                   vipPayMsg=(VipPayMsg) msg;
-                                   PreferenceHelper.write(ac, "shoppay", "WxOrder", System.currentTimeMillis()+  PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
-                                       ImpWeixinPay weixinPay =new ImpWeixinPay();
-                                       weixinPay.weixinPay(ac,tv_money.getText().toString(),PreferenceHelper.readString(getApplicationContext(), "shoppay", "OrderAccount", ""),"会员充次", new InterfaceMVC() {
-                                           @Override
-                                           public void onResponse(int code, Object response) {
-                                            weixinDialog=   WeixinPayDialog.weixinPayDialog(NumRechargeActivity.this,1,(String)response,tv_money.getText().toString());
-                                               intent = new Intent(getApplicationContext(),
-                                                       PayResultPollService.class);
-                                               startService(intent);
-                                           }
+                                    vipPayMsg = (VipPayMsg) msg;
+                                    PreferenceHelper.write(ac, "shoppay", "WxOrder", System.currentTimeMillis() + PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
+                                    ImpWeixinPay weixinPay = new ImpWeixinPay();
+                                    weixinPay.weixinPay(ac, tv_money.getText().toString(), PreferenceHelper.readString(getApplicationContext(), "shoppay", "OrderAccount", ""), "会员充次", new InterfaceMVC() {
+                                        @Override
+                                        public void onResponse(int code, Object response) {
+                                            weixinDialog = WeixinPayDialog.weixinPayDialog(NumRechargeActivity.this, 1, (String) response, tv_money.getText().toString());
+                                            intent = new Intent(getApplicationContext(),
+                                                    PayResultPollService.class);
+                                            startService(intent);
+                                        }
 
-                                           @Override
-                                           public void onErrorResponse(int code, Object msg) {
+                                        @Override
+                                        public void onErrorResponse(int code, Object msg) {
 
-                                           }
-                                       });
+                                        }
+                                    });
 
 
-                               }
-                           });
-                          }
-                    }
-                        else {
+                                }
+                            });
+                        }
+                    } else {
                         Toast.makeText(getApplicationContext(), "请检查网络是否可用",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -505,32 +493,34 @@ public class NumRechargeActivity extends Activity implements
                 break;
         }
     }
-    private class  ShopChangeReceiver extends BroadcastReceiver{
+
+    private class ShopChangeReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("xx","ShopChangeReceiver");
-            List<ShopCar> listss= dbAdapter.getListShopCar(PreferenceHelper.readString(context,"shoppay","account","123"));
-            num=0;
-            money=0;
-            jifen=0;
-            xfmoney=0;
-            for(ShopCar shopCar:listss){
-                if(shopCar.count==0){
+            Log.d("xx", "ShopChangeReceiver");
+            List<ShopCar> listss = dbAdapter.getListShopCar(PreferenceHelper.readString(context, "shoppay", "account", "123"));
+            num = 0;
+            money = 0;
+            jifen = 0;
+            xfmoney = 0;
+            for (ShopCar shopCar : listss) {
+                if (shopCar.count == 0) {
 
-                }else{
-                    num=num+shopCar.count;
-                    money=money+Double.parseDouble(shopCar.discountmoney);
-                    jifen=jifen+shopCar.point;
-                    xfmoney=xfmoney+shopCar.count*Double.parseDouble(shopCar.price);
+                } else {
+                    num = num + shopCar.count;
+                    money = money + Double.parseDouble(shopCar.discountmoney);
+                    jifen = jifen + shopCar.point;
+                    xfmoney = xfmoney + shopCar.count * Double.parseDouble(shopCar.price);
                 }
             }
-            tv_jifen.setText((int)jifen+"");
-            tv_num.setText((int)num+"");
-            tv_money.setText(StringUtil.twoNum(money+""));
+            tv_jifen.setText((int) jifen + "");
+            tv_num.setText((int) num + "");
+            tv_money.setText(StringUtil.twoNum(money + ""));
 
         }
     }
+
     /**
      * 广播接收器
      *
@@ -549,10 +539,10 @@ public class NumRechargeActivity extends Activity implements
                 if (state.equals("success")) {
                     jiesuanDialog.dismiss();
                     weixinDialog.dismiss();
-                    jiesuan(ac,vipPayMsg);
+                    jiesuan(ac, vipPayMsg);
                 } else {
                     String msg = intent.getStringExtra("msg");
-                    Toast.makeText(ac,msg,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ac, msg, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -561,7 +551,7 @@ public class NumRechargeActivity extends Activity implements
     }
 
     private void jiesuan(final Context context, final VipPayMsg msg) {
-dialog.show();
+        dialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(context);
         client.setCookieStore(myCookieStore);
@@ -580,7 +570,7 @@ dialog.show();
         params.put("MemID", PreferenceHelper.readString(context, "shoppay", "memid", ""));
         params.put("DiscountMoney", msg.zhMoney);
         params.put("Money", msg.xfMoney);
-        params.put("Point",msg.obtainJifen);
+        params.put("Point", msg.obtainJifen);
         params.put("DataCount", datalength + "");
         params.put("bolIsPoint", msg.isJifen);
         params.put("PointPayMoney", msg.jifenDkmoney);
@@ -589,8 +579,8 @@ dialog.show();
         params.put("CardPayMoney", msg.yueMoney);
         params.put("bolIsCash", msg.isMoney);//1：真 0：假
         params.put("CashPayMoney", msg.xjMoney);
-        params.put("bolIsWeiXin",msg.isWx);//1：真 0：假
-        params.put("WeiXinPayMoney",msg.wxMoney);
+        params.put("bolIsWeiXin", msg.isWx);//1：真 0：假
+        params.put("WeiXinPayMoney", msg.wxMoney);
 
         for (int i = 0; i < shoplist.size(); i++) {
             params.put("Data[" + i + "][ExpPoint]", shoplist.get(i).point);
@@ -647,7 +637,7 @@ dialog.show();
 
         //关闭闹钟机制启动service
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour =2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
+        int anHour = 2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
@@ -658,31 +648,29 @@ dialog.show();
     }
 
 
-    public static byte[] printReceipt_BlueTooth(final String type,Context context,VipPayMsg msg)
-    {
-        String danhao = "消费单号:" +PreferenceHelper.readString(context, "shoppay","OrderAccount","");
-        String huiyuankahao = "会员卡号:" +PreferenceHelper.readString(context, "shoppay", "vipcar","无");
-        String huiyuanming = "会员名称:" +PreferenceHelper.readString(context, "shoppay", "vipname", "散客");
-        String xfmoney = "消费金额:" +msg.xfMoney;
-        String obtainjifen = "获得积分:" +msg.obtainJifen;
-        Log.d("xx",PreferenceHelper.readString(context, "shoppay", "vipname", "散客"));
-        try
-        {
+    public static byte[] printReceipt_BlueTooth(final String type, Context context, VipPayMsg msg) {
+        String danhao = "消费单号:" + PreferenceHelper.readString(context, "shoppay", "OrderAccount", "");
+        String huiyuankahao = "会员卡号:" + PreferenceHelper.readString(context, "shoppay", "vipcar", "无");
+        String huiyuanming = "会员名称:" + PreferenceHelper.readString(context, "shoppay", "vipname", "散客");
+        String xfmoney = "消费金额:" + msg.xfMoney;
+        String obtainjifen = "获得积分:" + msg.obtainJifen;
+        Log.d("xx", PreferenceHelper.readString(context, "shoppay", "vipname", "散客"));
+        try {
             byte[] next2Line = ESCUtil.nextLine(2);
             //            byte[] title = titleset.getBytes("gb2312");
-            byte[] title = PreferenceHelper.readString(context,"shoppay","PrintTitle","").getBytes("gb2312");
-            byte[] bottom = PreferenceHelper.readString(context,"shoppay","PrintFootNote","").getBytes("gb2312");
+            byte[] title = PreferenceHelper.readString(context, "shoppay", "PrintTitle", "").getBytes("gb2312");
+            byte[] bottom = PreferenceHelper.readString(context, "shoppay", "PrintFootNote", "").getBytes("gb2312");
             byte[] tickname;
-            if(type.equals("num")){
+            if (type.equals("num")) {
                 tickname = "服务充次小票".getBytes("gb2312");
-            }else {
+            } else {
                 tickname = "商品消费小票".getBytes("gb2312");
             }
             byte[] ordernum = danhao.getBytes("gb2312");
             byte[] vipcardnum = huiyuankahao.getBytes("gb2312");
             byte[] vipname = huiyuanming.getBytes("gb2312");
             byte[] xfmmm = xfmoney.getBytes("gb2312");
-            byte[] objfff = (obtainjifen+"").getBytes("gb2312");
+            byte[] objfff = (obtainjifen + "").getBytes("gb2312");
             byte[] xiahuaxian = "------------------------------".getBytes("gb2312");
 
             byte[] boldOn = ESCUtil.boldOn();
@@ -703,106 +691,105 @@ dialog.show();
             byte[] breakPartial = ESCUtil.feedPaperCutPartial();
             byte[][] mytitle = {nextLine, center, boldOn, title, boldOff, next2Line, left, tickname, nextLine, left, ordernum, nextLine, left,
                     vipcardnum, nextLine,
-                    left, vipname,nextLine,left,xfmmm,nextLine,left,objfff,nextLine,xiahuaxian};
+                    left, vipname, nextLine, left, xfmmm, nextLine, left, objfff, nextLine, xiahuaxian};
 
-            byte[] headerBytes =ESCUtil. byteMerger(mytitle);
+            byte[] headerBytes = ESCUtil.byteMerger(mytitle);
             List<byte[]> bytesList = new ArrayList<>();
             bytesList.add(headerBytes);
             //商品头
-            String shopdetai="服务名称    "+"单价    "+"次数    "+"合计";
+            String shopdetai = "服务名称    " + "单价    " + "次数    " + "合计";
             //商品头
-            byte[] sh=shopdetai.getBytes("gb2312");
+            byte[] sh = shopdetai.getBytes("gb2312");
             byte[][] mticket1 = {nextLine, left, sh};
             bytesList.add(ESCUtil.byteMerger(mticket1));
             //商品明细
-            DBAdapter dbAdapter=DBAdapter.getInstance(context);
-            List<ShopCar> list= dbAdapter.getListShopCar(PreferenceHelper.readString(context,"shoppay","account","123"));
-            for(ShopCar numShop:list){
-                if(numShop.count==0){
-                }else{
-                    StringBuffer sb=new StringBuffer();
+            DBAdapter dbAdapter = DBAdapter.getInstance(context);
+            List<ShopCar> list = dbAdapter.getListShopCar(PreferenceHelper.readString(context, "shoppay", "account", "123"));
+            for (ShopCar numShop : list) {
+                if (numShop.count == 0) {
+                } else {
+                    StringBuffer sb = new StringBuffer();
 
-                    String sn=numShop.shopname;
-                    Log.d("xxleng",sb.length()+"");
-                    int sbl=sn.length();
-                    if(sbl<6){
+                    String sn = numShop.shopname;
+                    Log.d("xxleng", sb.length() + "");
+                    int sbl = sn.length();
+                    if (sbl < 6) {
                         sb.append(sn);
-                        for(int i=0;i<7-sbl;i++) {
+                        for (int i = 0; i < 7 - sbl; i++) {
                             sb.insert(sb.length(), " ");
                         }
-                    }else{
-                        sn=sn.substring(0,6);
+                    } else {
+                        sn = sn.substring(0, 6);
                         sb.append(sn);
                         sb.append(" ");
                     }
-                    Log.d("xxleng",sb.length()+"");
-                    byte[] a=(sb.toString()+"" +CommonUtils.lasttwo(Double.parseDouble(numShop.price))+"      "+numShop.count+"      "+StringUtil.twoNum(numShop.discountmoney) ).getBytes("gb2312");
+                    Log.d("xxleng", sb.length() + "");
+                    byte[] a = (sb.toString() + "" + CommonUtils.lasttwo(Double.parseDouble(numShop.price)) + "      " + numShop.count + "      " + StringUtil.twoNum(numShop.discountmoney)).getBytes("gb2312");
                     byte[][] mticket = {nextLine, left, a};
                     bytesList.add(ESCUtil.byteMerger(mticket));
                 }
             }
-            byte[][] mtickets = {nextLine,xiahuaxian};
+            byte[][] mtickets = {nextLine, xiahuaxian};
             bytesList.add(ESCUtil.byteMerger(mtickets));
-            if(msg.isWx==1){
-                byte[] weixin=( "微信支付:" +StringUtil.twoNum(msg.wxMoney)).getBytes("gb2312");
-                byte[][] weixins= {nextLine,left,weixin};
+            if (msg.isWx == 1) {
+                byte[] weixin = ("微信支付:" + StringUtil.twoNum(msg.wxMoney)).getBytes("gb2312");
+                byte[][] weixins = {nextLine, left, weixin};
                 bytesList.add(ESCUtil.byteMerger(weixins));
-            }else {
+            } else {
                 byte[] yfmoney = ("应付金额:" + StringUtil.twoNum(msg.zhMoney)).getBytes("gb2312");
                 byte[] jinshengmoney = ("节省金额:" + StringUtil.twoNum(msg.jieshengMoney)).getBytes("gb2312");
 
                 byte[][] mticketsn = {nextLine, left, yfmoney, nextLine, left, jinshengmoney};
                 bytesList.add(ESCUtil.byteMerger(mticketsn));
             }
-            if(msg.isMoney==1){
-                byte[] moneys=( "现金支付:" +StringUtil.twoNum(msg.xjMoney)).getBytes("gb2312");
-                byte[][] mticketsm= {nextLine,left,moneys};
+            if (msg.isMoney == 1) {
+                byte[] moneys = ("现金支付:" + StringUtil.twoNum(msg.xjMoney)).getBytes("gb2312");
+                byte[][] mticketsm = {nextLine, left, moneys};
                 bytesList.add(ESCUtil.byteMerger(mticketsm));
             }
-            if(msg.isYue==1){
-                byte[] yue=( "余额支付:" +StringUtil.twoNum(msg.yueMoney)).getBytes("gb2312");
-                byte[][] mticketyue= {nextLine,left,yue};
+            if (msg.isYue == 1) {
+                byte[] yue = ("余额支付:" + StringUtil.twoNum(msg.yueMoney)).getBytes("gb2312");
+                byte[][] mticketyue = {nextLine, left, yue};
                 bytesList.add(ESCUtil.byteMerger(mticketyue));
             }
-            if(msg.isJifen==1){
-                byte[] jifen=( "积分抵扣:" +msg.jifenDkmoney).getBytes("gb2312");
-                byte[][] mticketjin= {nextLine,left,jifen};
+            if (msg.isJifen == 1) {
+                byte[] jifen = ("积分抵扣:" + msg.jifenDkmoney).getBytes("gb2312");
+                byte[][] mticketjin = {nextLine, left, jifen};
                 bytesList.add(ESCUtil.byteMerger(mticketjin));
             }
-            byte[] syjinfen=( "剩余积分:" +(int)Double.parseDouble(msg.vipSyJifen)).getBytes("gb2312");
-            byte[][] mticketsyjf= {nextLine,left,syjinfen};
+            byte[] syjinfen = ("剩余积分:" + (int) Double.parseDouble(msg.vipSyJifen)).getBytes("gb2312");
+            byte[][] mticketsyjf = {nextLine, left, syjinfen};
             bytesList.add(ESCUtil.byteMerger(mticketsyjf));
-            if(msg.isYue==1){
+            if (msg.isYue == 1) {
 //				double sy=CommonUtils.del(Double.parseDouble(PreferenceHelper.readString(context, "shoppay", "MemMoney","")),Double.parseDouble(et_yuemoney.getText().toString()));
-                byte[] shengyu=( "卡内余额:"+StringUtil.twoNum(msg.vipYue)).getBytes("gb2312");
-                byte[][] mticketsy= {nextLine,left,shengyu};
+                byte[] shengyu = ("卡内余额:" + StringUtil.twoNum(msg.vipYue)).getBytes("gb2312");
+                byte[][] mticketsy = {nextLine, left, shengyu};
                 bytesList.add(ESCUtil.byteMerger(mticketsy));
             }
 
-            byte[] ha=( "操作人员:"+PreferenceHelper.readString(context
-                    ,"shoppay","UserName","")).trim().getBytes("gb2312");
-            byte[] time=( "消费时间:"+getStringDate()).trim().getBytes("gb2312");
-            byte[] qianming=( "客户签名:").getBytes("gb2312");
-            Log.d("xx",PreferenceHelper.readString(context
-                    ,"shoppay","UserName",""));
+            byte[] ha = ("操作人员:" + PreferenceHelper.readString(context
+                    , "shoppay", "UserName", "")).trim().getBytes("gb2312");
+            byte[] time = ("消费时间:" + getStringDate()).trim().getBytes("gb2312");
+            byte[] qianming = ("客户签名:").getBytes("gb2312");
+            Log.d("xx", PreferenceHelper.readString(context
+                    , "shoppay", "UserName", ""));
             byte[][] footerBytes = {nextLine, left, ha, nextLine, left, time, nextLine, left, qianming, nextLine, left,
                     nextLine, left, nextLine, left, bottom, next2Line, next4Line, breakPartial};
 
             bytesList.add(ESCUtil.byteMerger(footerBytes));
-            Log.d("xxprint",new String(MergeLinearArraysUtil.mergeLinearArrays(bytesList)));
+            Log.d("xxprint", new String(MergeLinearArraysUtil.mergeLinearArrays(bytesList)));
             return MergeLinearArraysUtil.mergeLinearArrays(bytesList);
 
 
             //            bluetoothUtil.send(MergeLinearArraysUtil.mergeLinearArrays(bytesList));
 
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
 //			Log.d("xx","异常");
         }
         return null;
     }
+
     public static String getStringDate() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

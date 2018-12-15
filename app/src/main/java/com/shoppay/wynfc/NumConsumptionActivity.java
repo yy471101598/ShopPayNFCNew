@@ -475,9 +475,7 @@ public class NumConsumptionActivity extends Activity implements View.OnClickList
         super.onResume();
         new ReadCardOpt(et_vipcard);
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
                 Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
 
             return;
         }

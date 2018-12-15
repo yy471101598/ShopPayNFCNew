@@ -77,8 +77,8 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     private String editString;
     private Dialog dialog;
     private RechargeAdapter adapter;
-    private  VipRecharge recharge;
-    private boolean isSuccess=false;
+    private VipRecharge recharge;
+    private boolean isSuccess = false;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -86,36 +86,36 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             switch (msg.what) {
                 case 1:
                     VipInfo info = (VipInfo) msg.obj;
-                    if(info.MemState==0){
-                    tv_vipname.setText(info.MemName);
-                    tv_vipyue.setText(info.MemMoney);
-                    PreferenceHelper.write(ac,"shoppay","memid",info.MemID);
-                    PreferenceHelper.write(ac,"shoppay","percent",info.ClassRechargePointRate);
-                    PreferenceHelper.write(ac, "shoppay", "vipcar",et_vipcard.getText().toString());
-                    PreferenceHelper.write(ac, "shoppay", "jifen",info.MemPoint);
-                    isSuccess=true;
-            }else  if(info.MemState==1) {
-                Toast.makeText(ac,"此卡已锁定",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(ac,"shoppay","viptoast","此卡已锁定");
+                    if (info.MemState == 0) {
+                        tv_vipname.setText(info.MemName);
+                        tv_vipyue.setText(info.MemMoney);
+                        PreferenceHelper.write(ac, "shoppay", "memid", info.MemID);
+                        PreferenceHelper.write(ac, "shoppay", "percent", info.ClassRechargePointRate);
+                        PreferenceHelper.write(ac, "shoppay", "vipcar", et_vipcard.getText().toString());
+                        PreferenceHelper.write(ac, "shoppay", "jifen", info.MemPoint);
+                        isSuccess = true;
+                    } else if (info.MemState == 1) {
+                        Toast.makeText(ac, "此卡已锁定", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(ac, "shoppay", "viptoast", "此卡已锁定");
                         tv_vipname.setText("");
                         tv_vipyue.setText("");
-                        isSuccess=false;
-            }else{
-                Toast.makeText(ac,"此卡已挂失",Toast.LENGTH_LONG).show();
-                        PreferenceHelper.write(ac,"shoppay","viptoast","此卡已挂失");
+                        isSuccess = false;
+                    } else {
+                        Toast.makeText(ac, "此卡已挂失", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(ac, "shoppay", "viptoast", "此卡已挂失");
                         tv_vipname.setText("");
                         tv_vipyue.setText("");
-                        isSuccess=false;
-            }
+                        isSuccess = false;
+                    }
                     break;
                 case 2:
                     tv_vipname.setText("");
                     tv_vipyue.setText("");
-                    isSuccess=false;
+                    isSuccess = false;
                     break;
                 case 5:
-                    String card= msg.obj.toString();
-                    Log.d("xxxx",card);
+                    String card = msg.obj.toString();
+                    Log.d("xxxx", card);
                     et_vipcard.setText(card);
                     break;
             }
@@ -126,13 +126,14 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     private Dialog weixinDialog;
     private NfcAdapter mAdapter;
     private PendingIntent mPendingIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viprecharge);
         ac = MyApplication.context;
         dialog = DialogUtil.loadingDialog(VipRechargeActivity.this, 1);
-        PreferenceHelper.write(MyApplication.context,"shoppay","viptoast","未查询到会员");
+        PreferenceHelper.write(MyApplication.context, "shoppay", "viptoast", "未查询到会员");
         ActivityStack.create().addActivity(VipRechargeActivity.this);
         initView();
         Intent nfcIntent = new Intent(this, getClass());
@@ -169,7 +170,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         myGridViews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                recharge=(VipRecharge) adapterView.getItemAtPosition(i);
+                recharge = (VipRecharge) adapterView.getItemAtPosition(i);
                 if (et_vipcard.getText().toString().equals("")
                         || et_vipcard.getText().toString() == null) {
                     Toast.makeText(getApplicationContext(), "请输入会员卡号",
@@ -177,13 +178,13 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                 } else {
                     if (isSuccess) {
                         if (CommonUtils.checkNet(getApplicationContext())) {
-                            if(!state.equals("现金")){
-                                PreferenceHelper.write(MyApplication.context, "shoppay", "WxOrder", System.currentTimeMillis()+  PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
-                                ImpWeixinPay weixinPay =new ImpWeixinPay();
-                                weixinPay.weixinPay(ac, recharge.getRechargeMoney(),"","会员充值", new InterfaceMVC() {
+                            if (!state.equals("现金")) {
+                                PreferenceHelper.write(MyApplication.context, "shoppay", "WxOrder", System.currentTimeMillis() + PreferenceHelper.readString(MyApplication.context, "shoppay", "memid", "123"));
+                                ImpWeixinPay weixinPay = new ImpWeixinPay();
+                                weixinPay.weixinPay(ac, recharge.getRechargeMoney(), "", "会员充值", new InterfaceMVC() {
                                     @Override
                                     public void onResponse(int code, Object response) {
-                                        weixinDialog= WeixinPayDialog.weixinPayDialog(VipRechargeActivity.this,1,(String)response,recharge.getRechargeMoney());
+                                        weixinDialog = WeixinPayDialog.weixinPayDialog(VipRechargeActivity.this, 1, (String) response, recharge.getRechargeMoney());
                                         intent = new Intent(getApplicationContext(),
                                                 PayResultPollService.class);
                                         startService(intent);
@@ -194,7 +195,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
 
                                     }
                                 });
-                            }else {
+                            } else {
                                 if (PreferenceHelper.readBoolean(MyApplication.context, "shoppay", "IsChkPwd", false)) {
                                     DialogUtil.pwdDialog("recharge", VipRechargeActivity.this, 1, new InterfaceBack() {
                                         @Override
@@ -216,12 +217,11 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                                     Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(MyApplication.context,PreferenceHelper.readString(MyApplication.context,"shoppay","viptoast","未查询到会员"),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyApplication.context, PreferenceHelper.readString(MyApplication.context, "shoppay", "viptoast", "未查询到会员"), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
-
 
 
         PreferenceHelper.write(getApplicationContext(), "PayOk", "time", "false");
@@ -369,25 +369,25 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private void vipRecharge(final VipRecharge recharge){
+    private void vipRecharge(final VipRecharge recharge) {
         dialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         final PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
         client.setCookieStore(myCookieStore);
         RequestParams map = new RequestParams();
-        map.put("memID",  PreferenceHelper.readString(ac,"shoppay","memid",""));
+        map.put("memID", PreferenceHelper.readString(ac, "shoppay", "memid", ""));
         map.put("money", recharge.getRechargeMoney());
         map.put("giveMoney", recharge.getGiveMoney());
         map.put("remark", "app充值");
-        map.put("point",(int)CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()),Double.parseDouble(PreferenceHelper.readString(ac,"shoppay","percent","1")),2));
+        map.put("point", (int) CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()), Double.parseDouble(PreferenceHelper.readString(ac, "shoppay", "percent", "1")), 2));
 //        2: 现金充值
 //        6: 微信充值
-         if(state.equals("现金")){
-             map.put("RechargeType",2);
-         }else{
-             map.put("RechargeType",6);
+        if (state.equals("现金")) {
+            map.put("RechargeType", 2);
+        } else {
+            map.put("RechargeType", 6);
         }
-         Log.d("xx",map.toString());
+        Log.d("xx", map.toString());
         client.post(PreferenceHelper.readString(ac, "shoppay", "yuming", "123") + "/mobile/app/api/appAPI.ashx?Method=AppMemRecharge", map, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -396,13 +396,13 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
                     LogUtils.d("xxviprechargeS", new String(responseBody, "UTF-8"));
                     JSONObject jso = new JSONObject(new String(responseBody, "UTF-8"));
                     if (jso.getBoolean("success")) {
-                            Toast.makeText(ac, "充值成功", Toast.LENGTH_LONG).show();
-                            PreferenceHelper.write(ac, "shoppay", "OrderAccount", jso.getJSONObject("data").getString("OrderAccount"));
-                            if (PreferenceHelper.readBoolean(ac, "shoppay", "IsPrint", false)) {
-                                BluetoothUtil.connectBlueTooth(ac);
-                                BluetoothUtil.sendData(printReceipt_BlueTooth(), PreferenceHelper.readInt(ac, "shoppay", "RechargePrintNumber", 1));
-                            }
-                            finish();
+                        Toast.makeText(ac, "充值成功", Toast.LENGTH_LONG).show();
+                        PreferenceHelper.write(ac, "shoppay", "OrderAccount", jso.getJSONObject("data").getString("OrderAccount"));
+                        if (PreferenceHelper.readBoolean(ac, "shoppay", "IsPrint", false)) {
+                            BluetoothUtil.connectBlueTooth(ac);
+                            BluetoothUtil.sendData(printReceipt_BlueTooth(), PreferenceHelper.readInt(ac, "shoppay", "RechargePrintNumber", 1));
+                        }
+                        finish();
 
                     } else {
 
@@ -428,10 +428,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         super.onResume();
         new ReadCardOpt(et_vipcard);
         if (mAdapter == null) {
-            if (!mAdapter.isEnabled()) {
-                Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
-            }
-
+            Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!mAdapter.isEnabled()) {
@@ -444,6 +441,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -458,7 +456,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     @Override
     public void onNewIntent(Intent intent) {
         Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tagFromIntent!=null) {
+        if (tagFromIntent != null) {
             String CardId = ByteArrayToHex(tagFromIntent.getId());
             if (null != CardId) {
                 Log.d("xxnfccard", Long.parseLong(CardId, 16) + "");
@@ -471,9 +469,9 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
     }
 
 
-    public static  String ByteArrayToHex(byte[] inarray) {
+    public static String ByteArrayToHex(byte[] inarray) {
         int i, j, in;
-        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9","A","B","C","D","E","F"};
+        String[] hex = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String out = "";
 
         for (j = 0; j < inarray.length; ++j) {
@@ -483,21 +481,18 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             i = in & 0x0f;
             out += hex[i];
         }
-        long x = Long.parseLong(out,  16);
+        long x = Long.parseLong(out, 16);
 //        int x = Integer.parseInt(out,16);
-        out = String.format("%010d",x);
+        out = String.format("%010d", x);
         return out;
     }
 
     @Override
     protected void onStop() {
         //终止检卡
-        try
-        {
+        try {
             new ReadCardOpt().overReadCard();
-        }
-        catch (RemoteException e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         super.onStop();
@@ -506,7 +501,6 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             handler.removeCallbacks(delayRun);
         }
     }
-
 
 
     public byte[] printReceipt_BlueTooth() {
@@ -549,35 +543,35 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             List<byte[]> bytesList = new ArrayList<>();
             bytesList.add(headerBytes);
             //商品头
-            byte[] rechargemoney =( "充值金额:" +StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
-            byte[] givemoney =( "赠送金额:" +StringUtil.twoNum(recharge.getGiveMoney())).getBytes("gb2312");
-            byte[] obtainjifen =( "获得积分:" +(int)CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()),Double.parseDouble(PreferenceHelper.readString(ac,"shoppay","percent","1")),2)).getBytes("gb2312");
-            byte[][] mticket1 = {nextLine, left, rechargemoney,nextLine,left,givemoney,nextLine,left,obtainjifen};
+            byte[] rechargemoney = ("充值金额:" + StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
+            byte[] givemoney = ("赠送金额:" + StringUtil.twoNum(recharge.getGiveMoney())).getBytes("gb2312");
+            byte[] obtainjifen = ("获得积分:" + (int) CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()), Double.parseDouble(PreferenceHelper.readString(ac, "shoppay", "percent", "1")), 2)).getBytes("gb2312");
+            byte[][] mticket1 = {nextLine, left, rechargemoney, nextLine, left, givemoney, nextLine, left, obtainjifen};
             bytesList.add(ESCUtil.byteMerger(mticket1));
 
 
             byte[][] mtickets = {nextLine, xiahuaxian};
             bytesList.add(ESCUtil.byteMerger(mtickets));
 
-            if(state.equals("现金")){
-                byte[] yfmoney =( "应付金额:" +StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
-                byte[][] mticketsn = {nextLine,left,yfmoney};
+            if (state.equals("现金")) {
+                byte[] yfmoney = ("应付金额:" + StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
+                byte[][] mticketsn = {nextLine, left, yfmoney};
                 bytesList.add(ESCUtil.byteMerger(mticketsn));
-                byte[] moneys=( "现金付款:" +StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
-                byte[][] mticketsm= {nextLine,left,moneys};
+                byte[] moneys = ("现金付款:" + StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
+                byte[][] mticketsm = {nextLine, left, moneys};
                 bytesList.add(ESCUtil.byteMerger(mticketsm));
-            }else{
-                byte[] moneys=( "微信支付:" +StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
-                byte[][] mticketsm= {nextLine,left,moneys};
+            } else {
+                byte[] moneys = ("微信支付:" + StringUtil.twoNum(recharge.getRechargeMoney())).getBytes("gb2312");
+                byte[][] mticketsm = {nextLine, left, moneys};
                 bytesList.add(ESCUtil.byteMerger(mticketsm));
             }
-            double sy= Double.parseDouble(recharge.getRechargeMoney())+Double.parseDouble(recharge.getGiveMoney())+Double.parseDouble(tv_vipyue.getText().toString());
-            byte[] shengyu=( "卡内余额:" + StringUtil.twoNum(sy+"")).getBytes("gb2312");
-            byte[][] mticketsy= {nextLine,left,shengyu};
+            double sy = Double.parseDouble(recharge.getRechargeMoney()) + Double.parseDouble(recharge.getGiveMoney()) + Double.parseDouble(tv_vipyue.getText().toString());
+            byte[] shengyu = ("卡内余额:" + StringUtil.twoNum(sy + "")).getBytes("gb2312");
+            byte[][] mticketsy = {nextLine, left, shengyu};
             bytesList.add(ESCUtil.byteMerger(mticketsy));
-            double syjf = Double.parseDouble( PreferenceHelper.readString(ac, "shoppay", "jifen","0")) + CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()),Double.parseDouble(PreferenceHelper.readString(ac,"shoppay","percent","1")),2);
-            byte[] syjinfen=( "剩余积分:" +(int)syjf).getBytes("gb2312");
-            byte[][] mticketsyjf= {nextLine,left,syjinfen};
+            double syjf = Double.parseDouble(PreferenceHelper.readString(ac, "shoppay", "jifen", "0")) + CommonUtils.div(Double.parseDouble(recharge.getRechargeMoney()), Double.parseDouble(PreferenceHelper.readString(ac, "shoppay", "percent", "1")), 2);
+            byte[] syjinfen = ("剩余积分:" + (int) syjf).getBytes("gb2312");
+            byte[][] mticketsyjf = {nextLine, left, syjinfen};
             bytesList.add(ESCUtil.byteMerger(mticketsyjf));
             byte[][] mticketsxx = {nextLine, xiahuaxian};
             bytesList.add(ESCUtil.byteMerger(mticketsxx));
@@ -608,6 +602,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+
     /**
      * 广播接收器
      *
@@ -625,16 +620,17 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
             } else {
                 if (state.equals("success")) {
                     weixinDialog.dismiss();
-                     vipRecharge(recharge);
+                    vipRecharge(recharge);
                 } else {
                     String msg = intent.getStringExtra("msg");
-                    Toast.makeText(ac,msg,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ac, msg, Toast.LENGTH_SHORT).show();
 
                 }
             }
         }
 
     }
+
     @Override
     protected void onDestroy() {
         // TODO 自动生成的方法存根
@@ -646,7 +642,7 @@ public class VipRechargeActivity extends Activity implements View.OnClickListene
 
         //关闭闹钟机制启动service
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour =2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
+        int anHour = 2 * 1000; // 这是一小时的毫秒数 60 * 60 * 1000
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);

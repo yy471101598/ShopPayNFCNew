@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shoppay.wynfc.tools.ActivityStack;
 
@@ -86,6 +87,14 @@ public class FastConsumptionActivity extends FragmentActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        if (mAdapter == null) {
+            Toast.makeText(ac, "该设备不支持NFC功能", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!mAdapter.isEnabled()) {
+            Toast.makeText(ac, "请在系统设置中先启用NFC功能", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (mAdapter != null) {
             //隐式启动
             mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
@@ -116,7 +125,7 @@ public class FastConsumptionActivity extends FragmentActivity implements
         }
         long x = Long.parseLong(out, 16);
 //        int x = Integer.parseInt(out,16);
-        out = String.format("%010d",x);
+        out = String.format("%010d", x);
         return out;
     }
 
